@@ -1,1 +1,4 @@
 .metadata/*
+*/.classpath
+alarme/.classpath
+alarme/.settings/*
