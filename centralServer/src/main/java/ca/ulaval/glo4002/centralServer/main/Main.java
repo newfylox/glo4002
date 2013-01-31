@@ -8,13 +8,15 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 public class Main {
 
+	private static int PORT = 8080;
+
 	public static void main(String[] args) throws Exception {
-		int PORT = 8080;
 
 		Server server = new Server(PORT);
 		ServletContextHandler servletContextHandler = new ServletContextHandler(
 				server, "/");
-		ServletHolder jerseyServletHolder = new ServletHolder(ServletContainer.class);
+		ServletHolder jerseyServletHolder = new ServletHolder(
+				ServletContainer.class);
 		jerseyServletHolder.setInitParameter(
 				"com.sun.jersey.config.property.resourceConfigClass",
 				"com.sun.jersey.api.core.PackagesResourceConfig");
