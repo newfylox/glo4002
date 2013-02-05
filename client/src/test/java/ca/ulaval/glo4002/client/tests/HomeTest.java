@@ -1,11 +1,14 @@
 package ca.ulaval.glo4002.client.tests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.client.Home;
+import ca.ulaval.glo4002.client.HomeConnectionHandler;
 
 public class HomeTest {
 
@@ -40,9 +43,18 @@ public class HomeTest {
 
 	@Test
 	public void systemSendsRequestToServerWhenAnIntrusionIsDetected() {
-		home.armSystem();
-		home.openMainDoor();
-		assertTrue(home.hasSentRequestToServer);
+		final HomeConnectionHandler homeConnectionHandlerMocked = mock(HomeConnectionHandler.class);
+		Home mockedHome = new Home() {
+			@Override
+			protected void setHomeConnectionHandler() {
+				homeConnectionHandler = homeConnectionHandlerMocked;
+			}
+		};
+
+		mockedHome.armSystem();
+		mockedHome.openMainDoor();
+
+		verify(homeConnectionHandlerMocked).sendPostRequest(anyString());
 	}
 
 }

@@ -21,9 +21,14 @@ public class HomeConnectionHandler {
 	public void sendPostRequest(String info) throws RuntimeException {
 		ClientResponse response = webResource.type("Application/xml").post(
 				ClientResponse.class, info);
-		if (response.getStatus() != 201) {
+		if (response.getStatus() != 200) {
 			throw new RuntimeException("Failed: HTTP error code: "
 					+ response.getStatus());
 		}
+	}
+
+	public static void main(String args[]) {
+		HomeConnectionHandler homeConnectionHandler = new HomeConnectionHandler();
+		homeConnectionHandler.sendPostRequest("YAY");
 	}
 }

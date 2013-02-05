@@ -2,17 +2,12 @@ package ca.ulaval.glo4002.client;
 
 public class Home {
 
-	private HomeConnectionHandler homeConnectionHandler;
+	protected HomeConnectionHandler homeConnectionHandler;
 	private boolean isArmed = false;
 	private boolean mainDoorIsOpened = false;
-	public boolean hasSentRequestToServer = false;
 
 	public Home() {
-		homeConnectionHandler = new HomeConnectionHandler();
-	}
-
-	public HomeConnectionHandler getHomeConnectionHandler() {
-		return homeConnectionHandler;
+		setHomeConnectionHandler();
 	}
 
 	public boolean systemIsArmed() {
@@ -34,16 +29,20 @@ public class Home {
 		return mainDoorIsOpened;
 	}
 
-	private boolean detectIntrusion(String info) {
-		if (sendRequestToServer(info)) {
-			return true;
-		}
-		return false;
+	private void detectIntrusion(String info) {
+		sendRequestToServer(info);
+
 	}
 
-	private boolean sendRequestToServer(String info) {
-		getHomeConnectionHandler().sendPostRequest(info);
-		hasSentRequestToServer = true;
-		return true;
+	private void sendRequestToServer(String info) {
+		homeConnectionHandler.sendPostRequest(info);
+	}
+
+	protected void setHomeConnectionHandler() {
+		homeConnectionHandler = new HomeConnectionHandler();
+	}
+
+	public HomeConnectionHandler getHomeConnectionHandler() {
+		return homeConnectionHandler;
 	}
 }
