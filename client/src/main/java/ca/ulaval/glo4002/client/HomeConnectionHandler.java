@@ -6,29 +6,30 @@ import com.sun.jersey.api.client.WebResource;
 
 public class HomeConnectionHandler {
 
-	private static final String SERVER_URL = "http://localhost:8080/test";
-	private WebResource webResource;
+  private static final String SERVER_URL = "http://localhost:8080/test";
+  private WebResource webResource;
 
-	public HomeConnectionHandler() {
-		Client client = Client.create();
-		webResource = client.resource(SERVER_URL);
-	}
+  public HomeConnectionHandler() {
+    Client client = Client.create();
+    webResource = client.resource(SERVER_URL);
+  }
 
-	public WebResource getWebResource() {
-		return webResource;
-	}
+  public WebResource getWebResource() {
+    return webResource;
+  }
 
-	public void sendPostRequest(String info) throws RuntimeException {
-		ClientResponse response = webResource.type("Application/xml").post(
-				ClientResponse.class, info);
-		if (response.getStatus() != 200) {
-			throw new RuntimeException("Failed: HTTP error code: "
-					+ response.getStatus());
-		}
-	}
+  public String sendPostRequest(String info) throws RuntimeException {
+    ClientResponse response = webResource.type("Application/xml").post(
+        ClientResponse.class, info);
+    if (response.getStatus() != 200) {
+      throw new RuntimeException("Failed: HTTP error code: "
+          + response.getStatus());
+    }
+    return response.getEntity(String.class);
+  }
 
-	public static void main(String args[]) {
-		HomeConnectionHandler homeConnectionHandler = new HomeConnectionHandler();
-		homeConnectionHandler.sendPostRequest("YAY");
-	}
+  public static void main(String args[]) {
+    HomeConnectionHandler homeConnectionHandler = new HomeConnectionHandler();
+    homeConnectionHandler.sendPostRequest("YAY");
+  }
 }

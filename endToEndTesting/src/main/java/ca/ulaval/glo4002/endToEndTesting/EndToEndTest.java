@@ -1,5 +1,7 @@
 package ca.ulaval.glo4002.endToEndTesting;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,28 +12,29 @@ import ca.ulaval.glo4002.emergencyServer.main.EmergencyServerMain;
 
 public class EndToEndTest {
 
-	@Before
-	public void setUp() throws Exception {
-		CentralServer.startServer();
-		EmergencyServerMain.startServer();
-	}
+  private String RESPONSE_TO_POST_REQUEST = "emergency server";
+  private String EMERGENCY_URL = "http://localhost:8081/emergencyServer/";
+  private String A_POST_REQUEST = "simple request";
 
-	@After
-	public void tearDown() throws Exception {
-		CentralServer.stopServer();
-		EmergencyServerMain.stopServer();
-	}
+  @Before
+  public void setUp() throws Exception {
+    CentralServer.startServer();
+    EmergencyServerMain.startServer();
+  }
 
-	@Test
-	public void canSendRequestFromClientToCentralServer() {
-		Home home = new Home();
-		home.armSystem();
-		home.openMainDoor();
+  @After
+  public void tearDown() throws Exception {
+    CentralServer.stopServer();
+    EmergencyServerMain.stopServer();
+  }
 
-		// TODO Complete this test
-
-		// RequestTreatment emergencyTreatmentNodeMock =
-		// mock(RequestTreatment.class);
-		// verify(emergencyTreatmentNodeMock).treatRequest("/");
-	}
+  @Test
+  public void endToEndTest() {
+    Home home = new Home();
+    home.armSystem();
+    home.openMainDoor();
+    String postRequestAnswer = home.getHomeConnectionHandler().sendPostRequest(
+        A_POST_REQUEST);
+    assertTrue(postRequestAnswer.contains(RESPONSE_TO_POST_REQUEST));
+  }
 }
