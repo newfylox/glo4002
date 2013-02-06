@@ -12,8 +12,10 @@ import ca.ulaval.glo4002.emergencyServer.main.EmergencyServerMain;
 
 public class EndToEndTest {
 
-  private String RESPONSE_TO_POST_REQUEST = "emergency server";
-  private String EMERGENCY_URL = "http://localhost:8081/emergencyServer/";
+  private String RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY = "POST request received at emergency server";
+  private String RESPONSE_TO_POST_REQUEST_FROM_CENTRAL = "POST request received at central server";
+  private String RESPONSE_TO_POST_REQUEST = RESPONSE_TO_POST_REQUEST_FROM_CENTRAL
+      + RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY;
   private String A_POST_REQUEST = "simple request";
 
   @Before
@@ -35,6 +37,6 @@ public class EndToEndTest {
     home.openMainDoor();
     String postRequestAnswer = home.getHomeConnectionHandler().sendPostRequest(
         A_POST_REQUEST);
-    assertTrue(postRequestAnswer.contains(RESPONSE_TO_POST_REQUEST));
+    assertEquals(postRequestAnswer, RESPONSE_TO_POST_REQUEST);
   }
 }
