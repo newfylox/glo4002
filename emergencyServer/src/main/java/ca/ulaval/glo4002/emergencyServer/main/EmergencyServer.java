@@ -6,7 +6,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
-public class EmergencyServerMain {
+public class EmergencyServer {
 
 	private static int PORT = 8081;
 	private static String packageName = "ca.ulaval.glo4002.emergencyServer.rest";
