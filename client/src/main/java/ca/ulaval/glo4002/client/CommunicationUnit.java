@@ -4,12 +4,12 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public class HomeConnectionHandler {
+public class CommunicationUnit {
 
   private static final String SERVER_URL = "http://localhost:8080/test";
   private WebResource webResource;
 
-  public HomeConnectionHandler() {
+  public CommunicationUnit() {
     Client client = Client.create();
     webResource = client.resource(SERVER_URL);
   }
@@ -26,10 +26,5 @@ public class HomeConnectionHandler {
           + response.getStatus());
     }
     return response.getEntity(String.class);
-  }
-
-  public static void main(String args[]) {
-    HomeConnectionHandler homeConnectionHandler = new HomeConnectionHandler();
-    homeConnectionHandler.sendPostRequest("YAY");
   }
 }
