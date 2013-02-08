@@ -2,15 +2,12 @@ package ca.ulaval.glo4002.client;
 
 import ca.ulaval.glo4002.client.Signal.DetectorType;
 
-public class DetectionSignalAdapter {
-
-  protected SignalHandler detectorSignalHandler;
-
-  public DetectionSignalAdapter() {
+public class SoftwareDetectorAdapter extends DetectorAdapter {
+  public SoftwareDetectorAdapter() {
     detectorSignalHandler = SignalHandler.getInstance();
   }
 
-  protected DetectionSignalAdapter(SignalHandler signalHandler) {
+  protected SoftwareDetectorAdapter(SignalHandler signalHandler) {
     detectorSignalHandler = signalHandler;
   }
 
@@ -24,5 +21,4 @@ public class DetectionSignalAdapter {
       int delayToContactEmergency) {
     return new Signal(detectorType, delayToContactEmergency);
   }
-
 }

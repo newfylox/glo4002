@@ -8,9 +8,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
-import ca.ulaval.glo4002.client.DetectionSignalAdapter;
+import ca.ulaval.glo4002.client.DetectorAdapter;
 import ca.ulaval.glo4002.client.Signal;
 import ca.ulaval.glo4002.client.SignalHandler;
+import ca.ulaval.glo4002.client.SoftwareDetectorAdapter;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
 
 public class EndToEndTest {
@@ -20,7 +21,7 @@ public class EndToEndTest {
       + RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY;
   private int TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS = 0;
   private SignalHandler signalHandler;
-  private DetectionSignalAdapter detectSignal;
+  private DetectorAdapter softwareDetector;
 
   @Before
   public void setUp() throws Exception {
@@ -28,7 +29,7 @@ public class EndToEndTest {
     EmergencyServer.startServer();
 
     signalHandler = SignalHandler.getInstance();
-    detectSignal = new DetectionSignalAdapter();
+    softwareDetector = new SoftwareDetectorAdapter();
   }
 
   @After
@@ -40,7 +41,7 @@ public class EndToEndTest {
   @Ignore
   @Test
   public void endToEndTest() {
-    detectSignal.sendSignalToSignalHandler(Signal.DetectorType.SecondaryDoor,
+    softwareDetector.sendSignalToSignalHandler(Signal.DetectorType.SecondaryDoor,
         TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS);
     String lastResponseFromServer = signalHandler.getLastResponseReceived();
 
