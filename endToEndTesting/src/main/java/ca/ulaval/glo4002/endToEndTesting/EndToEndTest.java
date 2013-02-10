@@ -20,13 +20,19 @@ public class EndToEndTest {
   private String RESPONSE_TO_POST_REQUEST = RESPONSE_TO_POST_REQUEST_FROM_CENTRAL
       + RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY;
   private int TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS = 0;
+
+  private CentralServer centralServer;
+  private EmergencyServer emergencyServer;
   private SignalHandler signalHandler;
   private DetectorAdapter softwareDetector;
 
   @Before
   public void setUp() throws Exception {
-    CentralServer.startServer();
-    EmergencyServer.startServer();
+    centralServer = new CentralServer();
+    emergencyServer = new EmergencyServer();
+
+    centralServer.startServer();
+    emergencyServer.startServer();
 
     signalHandler = SignalHandler.getInstance();
     softwareDetector = new SoftwareDetectorAdapter();
@@ -34,14 +40,15 @@ public class EndToEndTest {
 
   @After
   public void tearDown() throws Exception {
-    CentralServer.stopServer();
-    EmergencyServer.stopServer();
+    centralServer.stopServer();
+    emergencyServer.stopServer();
   }
 
   @Ignore
   @Test
   public void endToEndTest() {
-    softwareDetector.sendSignalToSignalHandler(Signal.DetectorType.SecondaryDoor,
+    softwareDetector.sendSignalToSignalHandler(
+        Signal.DetectorType.SecondaryDoor,
         TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS);
     String lastResponseFromServer = signalHandler.getLastResponseReceived();
 
