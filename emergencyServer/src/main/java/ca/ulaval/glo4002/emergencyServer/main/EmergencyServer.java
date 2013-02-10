@@ -8,36 +8,36 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 public class EmergencyServer {
 
-  private int PORT = 8081;
-  private String packageName = "ca.ulaval.glo4002.emergencyServer.rest";
-  private String contextPath = "/";
-  private String pathSpec = "/*";
+    private int PORT = 8081;
+    private String packageName = "ca.ulaval.glo4002.emergencyServer.rest";
+    private String contextPath = "/";
+    private String pathSpec = "/*";
 
-  private Server server;
+    private Server server;
 
-  public void startServer() throws Exception {
-    server = new Server(PORT);
-    ServletContextHandler servletContextHandler;
-    ServletHolder jerseyServletHolder;
+    public void startServer() throws Exception {
+        server = new Server(PORT);
+        ServletContextHandler servletContextHandler;
+        ServletHolder jerseyServletHolder;
 
-    servletContextHandler = new ServletContextHandler(server, contextPath);
-    jerseyServletHolder = createJerseyServletHolder(packageName);
-    servletContextHandler.addServlet(jerseyServletHolder, pathSpec);
-    server.start();
-  }
+        servletContextHandler = new ServletContextHandler(server, contextPath);
+        jerseyServletHolder = createJerseyServletHolder(packageName);
+        servletContextHandler.addServlet(jerseyServletHolder, pathSpec);
+        server.start();
+    }
 
-  public ServletHolder createJerseyServletHolder(String packageName) {
-    ServletHolder jerseyServletHolder = new ServletHolder(
-        ServletContainer.class);
-    jerseyServletHolder.setInitParameter(
-        "com.sun.jersey.config.property.resourceConfigClass",
-        "com.sun.jersey.api.core.PackagesResourceConfig");
-    jerseyServletHolder.setInitParameter(
-        "com.sun.jersey.config.property.packages", packageName);
-    return jerseyServletHolder;
-  }
+    public ServletHolder createJerseyServletHolder(String packageName) {
+        ServletHolder jerseyServletHolder = new ServletHolder(
+                ServletContainer.class);
+        jerseyServletHolder.setInitParameter(
+                "com.sun.jersey.config.property.resourceConfigClass",
+                "com.sun.jersey.api.core.PackagesResourceConfig");
+        jerseyServletHolder.setInitParameter(
+                "com.sun.jersey.config.property.packages", packageName);
+        return jerseyServletHolder;
+    }
 
-  public void stopServer() throws Exception {
-    server.stop();
-  }
+    public void stopServer() throws Exception {
+        server.stop();
+    }
 }
