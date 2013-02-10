@@ -26,8 +26,7 @@ public class RequestTreatment {
     String emergencyAnswer = null;
     try {
       emergencyAnswer = sendingPostResquest(EMERGENCY_URL, A_POST_REQUEST);
-    } catch (Exception e) {
-      // TODO the emergency server is probably no started
+    } catch (IOException e) {
       e.printStackTrace();
     }
     return RESPONSE_TO_POST_REQUEST + emergencyAnswer;
