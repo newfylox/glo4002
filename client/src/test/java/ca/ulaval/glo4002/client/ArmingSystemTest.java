@@ -31,7 +31,7 @@ public class ArmingSystemTest {
     @Test
     public void canArmSystemWhenSystemIsReady() {
         doReturn(true).when(systemState).isReady();
-        armingSystem.performNIPValidation(VALID_NIP);
+        armingSystem.handleKeypadEntry(VALID_NIP);
         verify(systemState).changeStatusToExitDelay();
     }
 
@@ -47,7 +47,7 @@ public class ArmingSystemTest {
             }
         }).when(delayTimer).startDelay(anyInt(), any());
 
-        armingSystem.performNIPValidation(VALID_NIP);
+        armingSystem.handleKeypadEntry(VALID_NIP);
 
         verify(systemState).changeStatusToArmed();
     }
@@ -55,7 +55,7 @@ public class ArmingSystemTest {
     @Test
     public void canArmSystemWithRapidArmingNIP() {
         doReturn(true).when(systemState).isReady();
-        armingSystem.performNIPValidation(RAPID_NIP);
+        armingSystem.handleKeypadEntry(RAPID_NIP);
         doAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -64,7 +64,7 @@ public class ArmingSystemTest {
             }
         }).when(delayTimer).startDelay(anyInt(), any());
 
-        armingSystem.performNIPValidation(VALID_NIP);
+        armingSystem.handleKeypadEntry(VALID_NIP);
 
         verify(systemState).changeStatusToArmed();
     }
@@ -72,14 +72,14 @@ public class ArmingSystemTest {
     @Test
     public void canDisarmSystem() {
         doReturn(true).when(systemState).isArmed();
-        armingSystem.performNIPValidation(VALID_NIP);
+        armingSystem.handleKeypadEntry(VALID_NIP);
         verify(systemState).changeStatusToDisarmed();
     }
 
     @Test
     public void cantDisarmWithRapidArmingNIP() {
         doReturn(true).when(systemState).isArmed();
-        armingSystem.performNIPValidation(RAPID_NIP);
+        armingSystem.handleKeypadEntry(RAPID_NIP);
         verify(systemState, never()).changeStatusToDisarmed();
     }
 }

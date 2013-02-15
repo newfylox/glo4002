@@ -43,7 +43,7 @@ public class ArmingSystem implements DelayTimerDelegate {
             return nip.equals(CORRECT_NIP) || nip.equals(RAPID_NIP);
     }
 
-    public void performNIPValidation(String nip) {
+    public void handleKeypadEntry(String nip) {
         if (isNIPValid(nip)) {
             if (!systemState.isArmed())
                 armSystem();

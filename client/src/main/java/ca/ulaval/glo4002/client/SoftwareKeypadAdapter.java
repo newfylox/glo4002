@@ -4,6 +4,6 @@ public class SoftwareKeypadAdapter extends KeypadAdapter {
 
     @Override
     public void sendNIPtoSystem(String nip) {
-        armingSystem.performNIPValidation(nip);
+        armingSystem.handleKeypadEntry(nip);
     }
 }
