@@ -2,7 +2,7 @@ package ca.ulaval.glo4002.client;
 
 public class SystemState {
 
-    public enum SystemStatus {
+    private enum SystemStatus {
         ARMED, EXIT_DELAY, DISARMED
     };
 
