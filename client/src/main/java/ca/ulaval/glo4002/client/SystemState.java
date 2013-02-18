@@ -8,22 +8,22 @@ public class SystemState {
 
     private boolean ready = true;
 
-    private SystemStatus armed = SystemStatus.DISARMED;
+    private SystemStatus status = SystemStatus.DISARMED;
 
     public boolean isArmed() {
-        return armed == SystemStatus.ARMED;
+        return status == SystemStatus.ARMED;
     }
 
     public void changeStatusToArmed() {
-        armed = SystemStatus.ARMED;
+        status = SystemStatus.ARMED;
     }
 
     public void changeStatusToDisarmed() {
-        armed = SystemStatus.DISARMED;
+        status = SystemStatus.DISARMED;
     }
 
     public void changeStatusToExitDelay() {
-        armed = SystemStatus.EXIT_DELAY;
+        status = SystemStatus.EXIT_DELAY;
     }
 
     public boolean isReady() {
