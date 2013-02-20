@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.client;
+package ca.ulaval.glo4002.devices;
 
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -11,7 +11,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class ArmingSystemTest {
+import ca.ulaval.glo4002.client.SystemState;
+import ca.ulaval.glo4002.devices.AlarmSystem;
+import ca.ulaval.glo4002.utilities.DelayTimer;
+
+public class AlarmSystemTest {
 
     private static final String VALID_NIP = "1234";
     private static final String RAPID_NIP = "#0";
@@ -20,11 +24,11 @@ public class ArmingSystemTest {
     @Mock
     private DelayTimer delayTimer;
     @InjectMocks
-    private ArmingSystem armingSystem;
+    private AlarmSystem armingSystem;
 
     @Before
     public void setUp() {
-        armingSystem = new ArmingSystem();
+        armingSystem = new AlarmSystem();
         MockitoAnnotations.initMocks(this);
     }
 
