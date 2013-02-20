@@ -12,5 +12,7 @@ public abstract class Policy {
         this.alarmSystem = alarmSystem;
     }
 
-    public abstract void executePolicy();
+    public void execute(int zone) {
+
+    }
 }

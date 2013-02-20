@@ -10,7 +10,7 @@ public class IntrusionPolicyFactory extends PolicyFactory {
 
     @Override
     public Policy createPolicy() {
-        return new IntrusionPolicy(alarmSystem);
+        return new MovementAndSecondaryDoorIntrusionPolicy(alarmSystem);
     }
 
 }

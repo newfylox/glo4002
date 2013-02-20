@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.policies;
 
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -10,10 +11,9 @@ import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4002.communication.CommunicationUnit;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 
-public class PolicyTest {
+public class MovementAndSecondaryDoorIntrusionPolicyTest {
 
-    private final int ZONE_OF_THE_DETECTOR = 5;
-    private Policy policy;
+    private MovementAndSecondaryDoorIntrusionPolicy policy;
 
     @Mock
     private AlarmSystem alarmSystem;
@@ -30,14 +30,15 @@ public class PolicyTest {
     @Test
     public void whenSystemIsNotArmedThereIsNoMessageSent() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.execute(ZONE_OF_THE_DETECTOR);
+        policy.execute(anyInt());
         verify(communicationUnit, never()).send();
     }
 
     @Test
     public void whenSystemIsArmedThereIsAMessageSent() {
         doReturn(true).when(alarmSystem).isArmed();
-        policy.execute(ZONE_OF_THE_DETECTOR);
+        policy.execute(anyInt());
         verify(communicationUnit).send();
     }
+
 }
