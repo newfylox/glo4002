@@ -1,61 +1,58 @@
 package ca.ulaval.glo4002.devices;
 
-public class AlarmSystem {
+import ca.ulaval.glo4002.utilities.DelayTimer;
+import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
+
+public class AlarmSystem implements DelayTimerDelegate{
 
     private enum SystemStatus {
-        ARMED, DISARMED, EXIT_DELAY
+        ARMED, DISARMED
     };
 
-    private static final String CORRECT_NIP = "1234";
-    private static final String RAPID_NIP = "00";
-    private boolean ready = true;
-    private SystemStatus status = SystemStatus.DISARMED;
+    private boolean isReady;
+    private SystemStatus status;
+    private DelayTimer delayTimer;
+    
+    public AlarmSystem() {
+    	isReady = true;
+    	status = SystemStatus.DISARMED;
+    	delayTimer = new DelayTimer(this);
+    }
 
     public boolean isArmed() {
         return status == SystemStatus.ARMED;
     }
 
-    private void changeStatusToArmed() {
-        status = SystemStatus.ARMED;
+	public void arm() throws BadStateException {
+		if(!isReady){
+			throw new BadStateException();
+		} else {
+			status = SystemStatus.ARMED;
+		}
+    }
+	
+    public void disarm() {
+    	status = SystemStatus.DISARMED;
     }
 
-    private void changeStatusToDisarmed() {
-        status = SystemStatus.DISARMED;
+	public void setNotReady() {
+	    isReady = false;
     }
 
-    private void changeStatusToExitDelay() {
-        status = SystemStatus.EXIT_DELAY;
+	public void setReady() {
+	    isReady = true;
     }
 
-    public boolean isReady() {
-        return ready;
+	public void startDelay() {
+		delayTimer.startDelay(30, this);
     }
 
-    private void armSystem() {
-        if (isReady()) {
-            changeStatusToArmed();
-        }
-    }
-
-    private void disarmSystem() {
-        changeStatusToDisarmed();
-    }
-
-    private boolean isNIPValid(String nip) {
-        if (isArmed()) {
-            return nip.equals(CORRECT_NIP);
-        } else {
-            return nip.equals(CORRECT_NIP) || nip.equals(RAPID_NIP);
-        }
-    }
-
-    public void handleKeypadEntry(String nip) {
-        if (isNIPValid(nip)) {
-            if (!isArmed()) {
-                armSystem();
-            } else {
-                disarmSystem();
-            }
+	@Override
+    public void delayExpired(Object identifier) {
+	    try {
+	        arm();
+        } catch (BadStateException e) {
+	        e.printStackTrace();
         }
     }
 }
