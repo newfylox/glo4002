@@ -23,8 +23,7 @@ public class PolicyTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policy = new IntrusionPolicy(alarmSystem,
-                communicationUnit);
+        policy = createPolicy();
     }
 
     @Test
@@ -40,4 +39,12 @@ public class PolicyTest {
         policy.execute(ZONE_OF_THE_DETECTOR);
         verify(communicationUnit).send();
     }
+
+    private Policy createPolicy() {
+        Policy abstractPolicy = new Policy(alarmSystem, communicationUnit) {
+
+        };
+        return abstractPolicy;
+    }
+
 }

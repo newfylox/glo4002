@@ -13,6 +13,19 @@ public abstract class Policy {
     }
 
     public void execute(int zone) {
+        if (alarmSystem.isArmed()) {
+            sendMessage();
+        }
+    }
 
+    protected void sendMessage() {
+        communicationUnit.send();
+    }
+
+    // for test purpose only
+    protected Policy(AlarmSystem alarmSystem,
+            CommunicationUnit communicationUnit) {
+        this.alarmSystem = alarmSystem;
+        this.communicationUnit = communicationUnit;
     }
 }
