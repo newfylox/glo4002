@@ -23,7 +23,7 @@ public class PolicyTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policy = new MovementAndSecondaryDoorIntrusionPolicy(alarmSystem,
+        policy = new IntrusionPolicy(alarmSystem,
                 communicationUnit);
     }
 
