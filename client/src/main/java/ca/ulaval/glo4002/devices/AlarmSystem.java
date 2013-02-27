@@ -5,20 +5,20 @@ import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate{
 
-	private static final int DELAY = 30;
+	private static final int DELAY_IN_SECOND = 30;
     
-	private boolean isArmed;
+	private boolean armed;
     private boolean isReady;
     private DelayTimer delayTimer;
     
     public AlarmSystem() {
     	isReady = true;
-    	isArmed = false;
+    	armed = false;
     	delayTimer = new DelayTimer(this);
     }
 
     public boolean isArmed() {
-        return isArmed == true;
+        return armed;
     }
 
 	public void arm() throws BadStateException {
@@ -30,7 +30,7 @@ public class AlarmSystem implements DelayTimerDelegate{
     }
 	
     public void disarm() {
-    	isArmed =false;
+    	armed = false;
     }
 
 	public void setNotReady() {
@@ -42,11 +42,11 @@ public class AlarmSystem implements DelayTimerDelegate{
     }
 
 	private void startDelay() {
-		delayTimer.startDelay(DELAY, this);
+		delayTimer.startDelay(DELAY_IN_SECOND, this);
     }
 
 	@Override
     public void delayExpired(Object identifier) {
-	    isArmed = true;
+	    armed = true;
     }
 }

@@ -17,7 +17,7 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 
 public class AlarmSystemTest {
 
-    private static final int DELAY = 30;
+    private static final int DELAY_IN_SECOND_BEFORE_ARMING = 30;
 
     @Mock
     private DelayTimer delayTimer;
@@ -73,7 +73,7 @@ public class AlarmSystemTest {
     @Test
     public void whenMethodStartDelayIsCalledTheDelayIsStarted() throws BadStateException {
     	alarmSystem.arm();
-    	verify(delayTimer).startDelay(DELAY, alarmSystem);
+    	verify(delayTimer).startDelay(DELAY_IN_SECOND_BEFORE_ARMING, alarmSystem);
     }
     
     @Test
