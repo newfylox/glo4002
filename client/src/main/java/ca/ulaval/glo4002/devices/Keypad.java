@@ -2,29 +2,35 @@ package ca.ulaval.glo4002.devices;
 
 public class Keypad {
 
-    private static final String CORRECT_NIP = "1234";
-    private static final String RAPID_NIP = "00";
+    private int validPIN = 12345;
     private AlarmSystem alarmSystem;
 
-    public void sendNIPtoSystem(String nip) {
-        alarmSystem.handleKeypadEntry(nip);
+	public Keypad(AlarmSystem alarmSystem) {
+	    this.alarmSystem = alarmSystem;
     }
-    
-    public void handleKeypadEntry(String nip) {
-        if (isNIPValid(nip)) {
-            if (!isArmed()) {
-                armSystem();
-            } else {
-                disarmSystem();
-            }
-        }
+
+	public void armSystem(int submittedPIN) throws BadStateException, InvalidPINException {
+		validatePIN(submittedPIN);
+		alarmSystem.arm();
     }
-    
-    private boolean isNIPValid(String nip) {
-        if (isArmed()) {
-            return nip.equals(CORRECT_NIP);
-        } else {
-            return nip.equals(CORRECT_NIP) || nip.equals(RAPID_NIP);
-        }
+	
+	private void validatePIN(int submittedPIN) throws InvalidPINException {
+		if (submittedPIN != validPIN) {
+			throw new InvalidPINException();
+		}
+    }
+
+	public void disarmSystem(int submittedPIN) throws InvalidPINException {
+		validatePIN(submittedPIN);
+	    alarmSystem.disarm();
+    }
+
+	public void changePIN(int submittedPIN, int newPIN) throws InvalidPINException {
+		validatePIN(submittedPIN);
+		validPIN = newPIN;
+    }
+
+	protected boolean isPINValid(int submittedPIN) {
+	    return validPIN == submittedPIN;
     }
 }
