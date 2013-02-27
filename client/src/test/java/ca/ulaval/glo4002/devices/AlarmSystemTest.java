@@ -28,6 +28,14 @@ public class AlarmSystemTest {
     public void setUp() {
         alarmSystem = new AlarmSystem();
         MockitoAnnotations.initMocks(this);
+        
+    	doAnswer(new Answer<Object>() {
+    		@Override
+    		public Object answer(InvocationOnMock invocation) throws Throwable {
+    			alarmSystem.delayExpired(invocation.getArguments()[1]);
+    			return null;
+    		}
+    	}).when(delayTimer).startDelay(anyInt(), any());
     }
     
     @Test
@@ -36,7 +44,7 @@ public class AlarmSystemTest {
     }
     
     @Test
-    public void unArmedSystemIsArmedWhenMethodArmIsCalled() throws BadStateException {
+    public void unArmedSystemIsArmedWhenMethodArmIsCalled() throws BadStateException {    	
     	alarmSystem.arm();
     	assertTrue(alarmSystem.isArmed());
     }
@@ -63,22 +71,14 @@ public class AlarmSystemTest {
     }
     
     @Test
-    public void whenMethodStartDelayIsCalledTheDelayIsStarted() {
-    	alarmSystem.startDelay();
+    public void whenMethodStartDelayIsCalledTheDelayIsStarted() throws BadStateException {
+    	alarmSystem.arm();
     	verify(delayTimer).startDelay(DELAY, alarmSystem);
     }
     
     @Test
-    public void theSystemIsArmedWhenDelayRunsOut() {
-    	doAnswer(new Answer<Object>() {
-    		@Override
-    		public Object answer(InvocationOnMock invocation) throws Throwable {
-    			alarmSystem.delayExpired(invocation.getArguments()[1]);
-    			return null;
-    		}
-    	}).when(delayTimer).startDelay(anyInt(), any());
-    	alarmSystem.startDelay();
-    	
+    public void theSystemIsArmedWhenDelayRunsOut() throws BadStateException {
+    	alarmSystem.arm();
     	assertTrue(alarmSystem.isArmed());
     }
 }

@@ -5,34 +5,32 @@ import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate{
 
-    private enum SystemStatus {
-        ARMED, DISARMED
-    };
-
+	private static final int DELAY = 30;
+    
+	private boolean isArmed;
     private boolean isReady;
-    private SystemStatus status;
     private DelayTimer delayTimer;
     
     public AlarmSystem() {
     	isReady = true;
-    	status = SystemStatus.DISARMED;
+    	isArmed = false;
     	delayTimer = new DelayTimer(this);
     }
 
     public boolean isArmed() {
-        return status == SystemStatus.ARMED;
+        return isArmed == true;
     }
 
 	public void arm() throws BadStateException {
 		if(!isReady){
 			throw new BadStateException();
 		} else {
-			status = SystemStatus.ARMED;
+			startDelay();
 		}
     }
 	
     public void disarm() {
-    	status = SystemStatus.DISARMED;
+    	isArmed =false;
     }
 
 	public void setNotReady() {
@@ -43,16 +41,12 @@ public class AlarmSystem implements DelayTimerDelegate{
 	    isReady = true;
     }
 
-	public void startDelay() {
-		delayTimer.startDelay(30, this);
+	private void startDelay() {
+		delayTimer.startDelay(DELAY, this);
     }
 
 	@Override
     public void delayExpired(Object identifier) {
-	    try {
-	        arm();
-        } catch (BadStateException e) {
-	        e.printStackTrace();
-        }
+	    isArmed = true;
     }
 }
