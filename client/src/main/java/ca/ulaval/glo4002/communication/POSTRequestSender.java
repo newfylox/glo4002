@@ -18,13 +18,14 @@ public class POSTRequestSender {
         webResource = ressource;
     }
 
-    public void sendPostRequest(String resource, String messageToSend)
+    public String sendPostRequest(String resource, String messageToSend)
             throws RuntimeException {
-        ClientResponse response = webResource.type("Application/xml").post(
+        ClientResponse response = webResource.type("application/json").post(
                 ClientResponse.class, messageToSend);
         if (response.getStatus() != RESPONSE_OK) {
             throw new HTTPException("Failed: HTTP error code: "
                     + response.getStatus());
         }
+        return response.toString();
     }
 }

@@ -9,13 +9,16 @@ public class CommunicationUnit {
         FIRE, INTRUSION, REGISTRATION
     };
 
-    private JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
+    protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
     protected POSTRequestSender postRequestSender = new POSTRequestSender();;
     protected String resource;
-    protected ProtocolBuilder protocolBuilder;
 
     public CommunicationUnit(int userID, CommunicationType communicationType) {
         resource = generateResourceURL(userID, communicationType);
+    }
+
+    protected CommunicationUnit() {
+        resource = CommunicationType.REGISTRATION.toString();
     }
 
     private String generateResourceURL(int userID,
