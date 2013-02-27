@@ -8,12 +8,14 @@ public class AlarmSystem implements DelayTimerDelegate{
 	private static final int DELAY_IN_SECOND = 30;
     
 	private boolean armed;
+	private boolean suspended;
     private boolean isReady;
     private DelayTimer delayTimer;
     
     public AlarmSystem() {
     	isReady = true;
     	armed = false;
+    	suspended = false;
     	delayTimer = new DelayTimer(this);
     }
 
@@ -25,12 +27,14 @@ public class AlarmSystem implements DelayTimerDelegate{
 		if(!isReady){
 			throw new BadStateException();
 		} else {
+			suspended = true;
 			startDelay();
 		}
     }
 	
     public void disarm() {
     	armed = false;
+    	suspended = false;
     }
 
 	public void setNotReady() {
@@ -47,6 +51,9 @@ public class AlarmSystem implements DelayTimerDelegate{
 
 	@Override
     public void delayExpired(Object identifier) {
-	    armed = true;
+	    if(suspended) {
+	    	armed = true;
+	    	suspended = false;
+	    }
     }
 }

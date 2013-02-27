@@ -81,4 +81,13 @@ public class AlarmSystemTest {
     	alarmSystem.arm();
     	assertTrue(alarmSystem.isArmed());
     }
+    
+    @Test
+    public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredItIsStillDisarmedAfterDelay() throws BadStateException {
+    	AlarmSystem alarmSystemWithDelay = new AlarmSystem();
+    	alarmSystemWithDelay.arm();
+    	alarmSystemWithDelay.disarm();
+    	alarmSystemWithDelay.delayExpired(alarmSystemWithDelay);
+    	assertFalse(alarmSystemWithDelay.isArmed());
+    }
 }
