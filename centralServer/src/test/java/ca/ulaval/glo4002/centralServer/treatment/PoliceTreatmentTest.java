@@ -16,9 +16,6 @@ import ca.ulaval.glo4002.centralServer.user.UsersDirectory;
 public class PoliceTreatmentTest {
 
     private static final String A_GOOD_ID = "20";
-    private static final String AN_ADDRESS = "123 rue La Meilleure Rue";
-    private static final User A_RANDOM_USER = new User(
-            Integer.parseInt(A_GOOD_ID), AN_ADDRESS);
     private PoliceTreatment policeTreatment;
 
     @Mock
