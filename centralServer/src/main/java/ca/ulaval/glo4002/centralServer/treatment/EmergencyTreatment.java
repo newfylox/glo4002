@@ -13,14 +13,13 @@ public abstract class EmergencyTreatment {
         communicationUnit = new CommunicationUnit();
     }
 
-    // for test purpose only
-    protected EmergencyTreatment(UsersDirectory usersDirectory,
-            CommunicationUnit communicationUnit) {
-        this.usersDirectory = usersDirectory;
-        this.communicationUnit = communicationUnit;
-    }
-
     public void send() {
         // FIXME
+    }
+
+    // for test purpose only
+    protected EmergencyTreatment(final UsersDirectory usersDirectory, final CommunicationUnit communicationUnit) {
+        this.usersDirectory = usersDirectory;
+        this.communicationUnit = communicationUnit;
     }
 }
