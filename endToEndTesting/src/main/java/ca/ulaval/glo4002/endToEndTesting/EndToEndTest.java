@@ -10,10 +10,12 @@ import ca.ulaval.glo4002.centralServer.main.CentralServer;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
 
 public class EndToEndTest {
-    private String RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY = "POST request received at emergency server";
-    private String RESPONSE_TO_POST_REQUEST_FROM_CENTRAL = "POST request received at central server";
-    private String RESPONSE_TO_POST_REQUEST = RESPONSE_TO_POST_REQUEST_FROM_CENTRAL + RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY;
-    private int TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS = 0;
+
+    private static final String RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY = "POST request received at emergency server";
+    private static final String RESPONSE_TO_POST_REQUEST_FROM_CENTRAL = "POST request received at central server";
+    private static final String RESPONSE_TO_POST_REQUEST = RESPONSE_TO_POST_REQUEST_FROM_CENTRAL +
+                                                           RESPONSE_TO_POST_REQUEST_FROM_EMERGENCY;
+    private static final int TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS = 0;
 
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;

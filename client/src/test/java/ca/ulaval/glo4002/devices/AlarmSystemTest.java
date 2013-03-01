@@ -29,6 +29,7 @@ public class AlarmSystemTest {
         alarmSystem = new AlarmSystem();
         MockitoAnnotations.initMocks(this);
         doAnswer(new Answer<Object>() {
+
             @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 alarmSystem.delayExpired();

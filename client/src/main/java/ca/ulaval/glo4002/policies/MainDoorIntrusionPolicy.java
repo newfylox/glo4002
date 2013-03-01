@@ -33,8 +33,7 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     }
 
     // for test purpose only
-    protected MainDoorIntrusionPolicy(final AlarmSystem alarmSystem,
-                                      final CommunicationUnit communicationUnit,
+    protected MainDoorIntrusionPolicy(final AlarmSystem alarmSystem, final CommunicationUnit communicationUnit,
                                       final DelayTimer delayTimer) {
         super(alarmSystem);
         this.communicationUnit = communicationUnit;
