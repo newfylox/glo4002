@@ -12,7 +12,7 @@ public class CommunicationUnit {
     };
 
     protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
-    protected POSTRequestSender postRequestSender = new POSTRequestSender();;
+    protected POSTRequestSender postRequestSender = new POSTRequestSender();
 
     protected String resource;
 

@@ -3,6 +3,8 @@ package ca.ulaval.glo4002.common;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
+import java.net.URISyntaxException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +17,7 @@ import com.sun.jersey.api.client.WebResource.Builder;
 
 public class POSTRequestSenderTest {
 
+    private static final String A_MESSAGE = "message";
     private static final int AN_HTTP_ERROR_CODE = 500;
 
     @Mock
@@ -29,13 +32,13 @@ public class POSTRequestSenderTest {
     }
 
     @Test(expected = HTTPException.class)
-    public void throwsRuntimeExceptionWhenResponseIsNotOk() {
+    public void throwsHTTPExceptionWhenResponseIsNotOk() throws HTTPException, URISyntaxException {
         ClientResponse clientResponse = mock(ClientResponse.class);
         Builder builder = mock(Builder.class);
         doReturn(builder).when(resource).type(anyString());
-        doReturn(clientResponse).when(builder).post(ClientResponse.class, "message");
+        doReturn(clientResponse).when(builder).post(ClientResponse.class, A_MESSAGE);
         doReturn(AN_HTTP_ERROR_CODE).when(clientResponse).getStatus();
 
-        postRequestSender.sendPostRequest(anyString(), "message");
+        postRequestSender.sendPostRequest(anyString(), A_MESSAGE);
     }
 }
