@@ -25,7 +25,7 @@ public class CommunicationUnit {
     }
 
     private String generateResourceURL(final int userID, final CommunicationType communicationType) {
-        return String.format("%s/%d", communicationType.toString(), userID);
+        return String.format("%s/%d", communicationType.toString().toLowerCase(), userID);
     }
 
     public void send() {

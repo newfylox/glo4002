@@ -23,7 +23,7 @@ public class CommunicationUnit {
     }
 
     private String generateResourceURL(CommunicationType communicationType) {
-        return String.format("%s", communicationType.toString());
+        return String.format("%s", communicationType.toString().toLowerCase());
     }
 
 }
