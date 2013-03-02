@@ -5,8 +5,12 @@ import ca.ulaval.glo4002.policies.Policy;
 public class Detector {
 
     private Policy policy;
-    private int zone;
+
+    public Detector(final Policy policy) {
+        this.policy = policy;
+    }
 
     public void trigger() {
+        policy.execute();
     }
 }

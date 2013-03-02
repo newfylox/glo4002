@@ -3,11 +3,11 @@ package ca.ulaval.glo4002.communication;
 import java.util.HashMap;
 
 public class ProtocolBuilder {
-    
-    private static final String EMERGENCY_TYPE_KEY = "emergencyType";
+
     private static final String ADDRESS_KEY = "address";
+
     private HashMap<String, String> attributes;
-    
+
     public ProtocolBuilder() {
         attributes = new HashMap<String, String>();
     }
@@ -16,12 +16,7 @@ public class ProtocolBuilder {
         return attributes;
     }
 
-    public void addEmergencyType(String emergencyType) {
-        attributes.put(EMERGENCY_TYPE_KEY, emergencyType);
-    }
-
-    public void addClientAddress(String address) {
+    public void addClientAddress(final String address) {
         attributes.put(ADDRESS_KEY, address);
     }
-
 }

@@ -15,33 +15,33 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 public class MainDoorIntrusionPolicyTest {
 
     private MainDoorIntrusionPolicy policy;
-    private final int A_ZONE = 1;
 
     @Mock
     private AlarmSystem alarmSystem;
+
     @Mock
     private DelayTimer delayTimer;
+
     @Mock
     private CommunicationUnit communicationUnit;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policy = new MainDoorIntrusionPolicy(alarmSystem, communicationUnit,
-                delayTimer);
+        policy = new MainDoorIntrusionPolicy(alarmSystem, communicationUnit, delayTimer);
     }
 
     @Test
     public void whenSystemIsNotArmedDelayTimerDoesNotStart() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.execute(A_ZONE);
+        policy.execute();
         verify(delayTimer, never()).startDelay(anyInt());
     }
 
     @Test
     public void whenSystemIsArmedDelayTimerStarts() {
         doReturn(true).when(alarmSystem).isArmed();
-        policy.execute(A_ZONE);
+        policy.execute();
         verify(delayTimer).startDelay(anyInt());
     }
 

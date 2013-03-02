@@ -1,61 +1,75 @@
 package ca.ulaval.glo4002.devices;
 
-public class AlarmSystem {
+import ca.ulaval.glo4002.communication.ProtocolBuilder;
+import ca.ulaval.glo4002.communication.RegistrationCommunicationUnit;
+import ca.ulaval.glo4002.utilities.DelayTimer;
+import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
-    private enum SystemStatus {
-        ARMED, DISARMED, EXIT_DELAY
-    };
+public class AlarmSystem implements DelayTimerDelegate {
 
-    private static final String CORRECT_NIP = "1234";
-    private static final String RAPID_NIP = "00";
-    private boolean ready = true;
-    private SystemStatus status = SystemStatus.DISARMED;
+    private static final int DELAY_IN_SECOND = 30;
+
+    private int userID;
+    private boolean armed;
+    private boolean suspended;
+    private boolean isReady;
+    private DelayTimer delayTimer;
+
+    public AlarmSystem() {
+        isReady = true;
+        armed = false;
+        suspended = false;
+        delayTimer = new DelayTimer(this);
+    }
+
+    public void initialize(final String address) {
+        RegistrationCommunicationUnit registrationCommunicationUnit = new RegistrationCommunicationUnit();
+        ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+        protocolBuilder.addClientAddress(address);
+        registrationCommunicationUnit.sendRegistrationRequest(protocolBuilder.generate());
+
+        userID = registrationCommunicationUnit.retrieveUserID();
+    }
 
     public boolean isArmed() {
-        return status == SystemStatus.ARMED;
+        return armed;
     }
 
-    private void changeStatusToArmed() {
-        status = SystemStatus.ARMED;
-    }
-
-    private void changeStatusToDisarmed() {
-        status = SystemStatus.DISARMED;
-    }
-
-    private void changeStatusToExitDelay() {
-        status = SystemStatus.EXIT_DELAY;
-    }
-
-    public boolean isReady() {
-        return ready;
-    }
-
-    private void armSystem() {
-        if (isReady()) {
-            changeStatusToArmed();
-        }
-    }
-
-    private void disarmSystem() {
-        changeStatusToDisarmed();
-    }
-
-    private boolean isNIPValid(String nip) {
-        if (isArmed()) {
-            return nip.equals(CORRECT_NIP);
+    public void arm() throws BadStateException {
+        if (!isReady) {
+            throw new BadStateException();
         } else {
-            return nip.equals(CORRECT_NIP) || nip.equals(RAPID_NIP);
+            suspended = true;
+            startDelay();
         }
     }
 
-    public void handleKeypadEntry(String nip) {
-        if (isNIPValid(nip)) {
-            if (!isArmed()) {
-                armSystem();
-            } else {
-                disarmSystem();
-            }
+    public void disarm() {
+        armed = false;
+        suspended = false;
+    }
+
+    public void setNotReady() {
+        isReady = false;
+    }
+
+    public void setReady() {
+        isReady = true;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    @Override
+    public void delayExpired() {
+        if (suspended) {
+            armed = true;
+            suspended = false;
         }
+    }
+
+    private void startDelay() {
+        delayTimer.startDelay(DELAY_IN_SECOND);
     }
 }
