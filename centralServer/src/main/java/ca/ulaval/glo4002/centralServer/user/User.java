@@ -5,9 +5,9 @@ public class User {
     private int userID;
     private String userAddress;
 
-    public User(final int anID, final String anAdress) {
+    public User(final int anID, final String anAddress) {
         this.userID = anID;
-        this.userAddress = anAdress;
+        this.userAddress = anAddress;
     }
 
     public int getID() {
