@@ -39,7 +39,7 @@ public class POSTRequestSender {
             URI resourceURL = new URI(String.format("%s/%s", SERVER_URL, resource));
             webResource.uri(resourceURL);
         } catch (URISyntaxException e) {
-            // It is currently unrecoverable because the URL are hard-coded. If
+            // It is currently unrecoverable because the URLs are hard-coded. If
             // we can't create it here, then nobody can.
             throw new RuntimeException("There was an unrecoverable error trying to create a new resource URL");
         }

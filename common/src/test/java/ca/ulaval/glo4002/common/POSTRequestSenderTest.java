@@ -17,6 +17,7 @@ import com.sun.jersey.api.client.WebResource.Builder;
 
 public class POSTRequestSenderTest {
 
+    private static final String INVALID_URL = "@!#!(%@*#$)(!)@#~~{}>>..";
     private static final String A_MESSAGE = "message";
     private static final int AN_HTTP_ERROR_CODE = 500;
 
@@ -40,5 +41,10 @@ public class POSTRequestSenderTest {
         doReturn(AN_HTTP_ERROR_CODE).when(clientResponse).getStatus();
 
         postRequestSender.sendPostRequest(anyString(), A_MESSAGE);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void throwsRuntimeExceptionWhenURLIsInvalid() {
+        postRequestSender.sendPostRequest(INVALID_URL, A_MESSAGE);
     }
 }
