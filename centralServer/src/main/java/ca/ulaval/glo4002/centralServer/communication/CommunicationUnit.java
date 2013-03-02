@@ -17,7 +17,7 @@ public class CommunicationUnit {
     }
 
     public void send(final User obtainedUser) {
-        String messageToSend = obtainedUser.getAdress();
+        String messageToSend = obtainedUser.getAddress();
         postRequestSender.sendPostRequest(resource, messageToSend);
 
     }
