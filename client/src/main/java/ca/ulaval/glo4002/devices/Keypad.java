@@ -18,7 +18,7 @@ public class Keypad {
         if (isPINValid(PIN)) {
             alarmSystem.arm();
         } else {
-            throw new InvalidPINException();
+            throw new InvalidPINException("The PIN is wrong.");
         }
     }
 
@@ -26,7 +26,7 @@ public class Keypad {
         if (isPINValid(PIN)) {
             alarmSystem.disarm();
         } else {
-            throw new InvalidPINException();
+            throw new InvalidPINException("The PIN is wrong.");
         }
     }
 
@@ -36,7 +36,7 @@ public class Keypad {
             checkPINFormat(newPIN);
             validPIN = newPIN;
         } else {
-            throw new InvalidPINException();
+            throw new InvalidPINException("The PIN is wrong.");
         }
     }
 
@@ -47,7 +47,8 @@ public class Keypad {
 
     private void checkPINFormat(final String PIN) {
         if (!PIN.matches("^[0-9]{5}$")) {
-            throw new PINFormatForbiddenException();
+            throw new PINFormatForbiddenException(
+                    "The format of the PIN is incorrect.");
         }
     }
 }
