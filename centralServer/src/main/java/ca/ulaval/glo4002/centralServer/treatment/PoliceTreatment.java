@@ -16,7 +16,7 @@ public class PoliceTreatment extends EmergencyTreatment {
             throws UserNotFoundException {
         int userId = Integer.parseInt(userIdPassedByGetRequest);
         if (usersDirectory.userExists(userId)) {
-            communicationUnit.send(usersDirectory.obtainUser(userId));
+            communicationUnit.sendMessageToEmergencyServer(usersDirectory.obtainUser(userId));
         } else {
             throw new UserNotFoundException(
                     "The ID "

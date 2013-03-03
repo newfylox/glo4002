@@ -37,7 +37,7 @@ public class CommunicationUnitTest {
     public void callsSendPostRequestWhenSendingWithAttributes() {
         HashMap<String, String> attributes = new HashMap<String, String>();
         
-        communicationUnit.send(attributes);
+        communicationUnit.sendMessageToCentralServer(attributes);
         verify(postRequestSender).sendRequest(anyString(), anyString());
     }
     

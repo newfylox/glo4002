@@ -36,7 +36,7 @@ public class CommunicationUnit {
         getRequestSender.sendRequest(resource);
     }
 
-    public void send(final HashMap<String, String> attributes) {
+    public void sendMessageToCentralServer(final HashMap<String, String> attributes) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
         postRequestSender.sendRequest(resource, messageToSend);
     }
