@@ -39,7 +39,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>ca.ulaval.glo4002.endToEndTesting.ApplicationTester</mainClass>
+          <mainClass>ca.ulaval.glo4002.endToEndTesting.EndToEndTest</mainClass>
         </configuration>
       </plugin>
     </plugins>
