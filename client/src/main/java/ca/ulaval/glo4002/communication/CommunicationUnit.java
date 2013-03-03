@@ -32,7 +32,7 @@ public class CommunicationUnit {
         return String.format("%s/%d", communicationType.toString().toLowerCase(), userID);
     }
 
-    public void send() {
+    public void sendMessageToCentralServer() {
         getRequestSender.sendRequest(resource);
     }
 

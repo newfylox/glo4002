@@ -43,7 +43,7 @@ public class CommunicationUnitTest {
     
     @Test
     public void callsSendGetRequestWhenSending() {
-        communicationUnit.send();
+        communicationUnit.sendMessageToCentralServer();
         verify(getRequestSender).sendRequest(anyString());
     }
 }
