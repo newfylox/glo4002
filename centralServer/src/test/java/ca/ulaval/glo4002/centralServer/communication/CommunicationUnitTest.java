@@ -36,6 +36,6 @@ public class CommunicationUnitTest {
 
         communicationUnit.send(user);
 
-        verify(postRequestSender).sendPostRequest(anyString(), anyString());
+        verify(postRequestSender).sendRequest(anyString(), anyString());
     }
 }
