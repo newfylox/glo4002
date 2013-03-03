@@ -42,7 +42,7 @@ public class Keypad {
 
     // Protected for testing purposes
     protected boolean isPINValid(final String newPIN) {
-        return validPIN == newPIN || RAPID_PIN == newPIN;
+        return (validPIN == newPIN || RAPID_PIN == newPIN);
     }
 
     private void checkPINFormat(final String PIN) {
