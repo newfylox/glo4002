@@ -43,7 +43,8 @@ public class Keypad {
 
     private void checkPINFormat(final String pin) {
         if (!pin.matches("^[0-9]{5}$")) {
-            throw new PINFormatForbiddenException();
+            throw new PINFormatForbiddenException(
+                    "The format of the PIN is incorrect.");
         }
     }
 }
