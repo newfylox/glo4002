@@ -39,4 +39,8 @@ public class CentralServer {
     public void stopServer() throws Exception {
         server.stop();
     }
+
+    public boolean isRunning() {
+        return server.isRunning() && server.isStarted();
+    }
 }

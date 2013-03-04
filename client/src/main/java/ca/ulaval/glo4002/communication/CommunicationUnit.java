@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.communication;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import ca.ulaval.glo4002.common.GETRequestSender;
@@ -37,6 +38,11 @@ public class CommunicationUnit {
 
     public void sendMessageToCentralServer(HashMap<String, String> attributes) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
-        postRequestSender.sendRequest(resource, messageToSend);
+        try {
+            postRequestSender.sendRequest(resource, messageToSend);
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

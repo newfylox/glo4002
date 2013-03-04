@@ -30,6 +30,7 @@ public abstract class HTTPRequestSender {
         try {
             URI resourceURL = new URI(String.format("%s/%s", serverURL, resource));
             webResource.uri(resourceURL);
+            System.out.println(resourceURL.toString());
         } catch (URISyntaxException e) {
             // It is currently unrecoverable because the URLs are hard-coded. If
             // we can't create it here, then nobody can.

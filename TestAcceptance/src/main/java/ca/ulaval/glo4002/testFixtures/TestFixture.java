@@ -112,4 +112,8 @@ public class TestFixture {
     public void verifyPoliceWasNotCalled() {
         assertFalse(EmergencyServer.wasCalled);
     }
+
+    public void AssertServerIsRunning() {
+        assertTrue(centralServer.isRunning());
+    }
 }
