@@ -87,6 +87,9 @@ public class TestFixture {
     }
 
     public void openMainDoor() {
+        mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem);
+        mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
+
         mainDoorDetector.trigger();
     }
 

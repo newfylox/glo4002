@@ -2,6 +2,7 @@ package ca.ulaval.glo4002.testAcceptance;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.testFixtures.TestFixture;
@@ -24,6 +25,7 @@ public class TestSendAlarmSignalWhenIntrusion {
         fixture.stopServers();
     }
 
+    @Ignore
     @Test
     public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() {
         fixture.triggerMainDoorIntrusion();
@@ -33,6 +35,7 @@ public class TestSendAlarmSignalWhenIntrusion {
         fixture.verifyPoliceWasCalled();
     }
 
+    @Ignore
     @Test
     public void emergenciesCalledWhenSecondaryDoorIntrusion() {
         fixture.triggerSecondaryDoorIntrusion();
@@ -40,6 +43,7 @@ public class TestSendAlarmSignalWhenIntrusion {
         fixture.verifyPoliceWasCalled();
     }
 
+    @Ignore
     @Test
     public void emergenciesCalledWhenMovementDetected() {
         fixture.triggerMovementDetector();
