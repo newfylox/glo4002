@@ -31,7 +31,6 @@ public class TestArmViaKeypad {
         fixture.assertAlarmSystemIsArmed();
     }
 
-    @Test
     public void systemIsArmedWithGoodPIN() {
         fixture.armSystemWithDefaultPIN();
 
