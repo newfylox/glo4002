@@ -18,6 +18,8 @@ public class EmergencyServer {
 
     private Server server;
 
+    private boolean receivedCall;
+
     public void startServer() throws Exception {
         server = new Server(PORT);
         ServletContextHandler servletContextHandler;
@@ -30,13 +32,20 @@ public class EmergencyServer {
     }
 
     public ServletHolder createJerseyServletHolder(final String packageName) {
-        ServletHolder jerseyServletHolder = new ServletHolder(ServletContainer.class);
-        jerseyServletHolder.setInitParameter(PARAM_RESSOURCE_CONFIG_CLASS, PACKAGE_RESSOURCE_CONFIG);
+        ServletHolder jerseyServletHolder = new ServletHolder(
+                ServletContainer.class);
+        jerseyServletHolder.setInitParameter(PARAM_RESSOURCE_CONFIG_CLASS,
+                PACKAGE_RESSOURCE_CONFIG);
         jerseyServletHolder.setInitParameter(PARAM_PACKAGE, packageName);
         return jerseyServletHolder;
     }
 
     public void stopServer() throws Exception {
         server.stop();
+    }
+
+    public boolean receivedCall() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

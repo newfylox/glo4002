@@ -1,5 +1,7 @@
 package ca.ulaval.glo4002.testAcceptance;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,21 +31,26 @@ public class TestArmViaKeypad {
         fixture.assertAlarmSystemIsArmed();
     }
 
-    @Test(expected = InvalidPINException.class)
+    @Test
     public void systemIsNotArmedWithWrongPIN() {
-        fixture.armSystemWithWrongPIN();
+        try {
+            fixture.armSystemWithWrongPIN();
+            fail("InvalidPINException expected.");
+        } catch (InvalidPINException e) {
+            fixture.assertAlarmSystemIsNotArmed();
+        }
 
-        fixture.assertAlarmSystemIsNotArmed();
     }
 
     @Test
-    public void thirtySecondsDelayAfterArmingSystemBeforeArming() {
+    public void thirtySecondsDelayAfterArmingSystemBeforeArming()
+            throws InterruptedException {
         fixture.armSystemWithDefaultPIN();
 
-        fixture.openMainDoor();
+        fixture.openSecondaryDoor();
 
         fixture.waitThirtySeconds();
 
-        fixture.assertNoIntrusion();
+        fixture.verifyPoliceWasCalled();
     }
 }

@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.testFixtures;
 
+import static org.junit.Assert.*;
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
@@ -11,6 +12,7 @@ import ca.ulaval.glo4002.policies.Policy;
 
 public class TestFixture {
 
+    private static final int THIRTY_SECONDS = 30000;
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
     private AlarmSystem alarmSystem;
@@ -19,15 +21,18 @@ public class TestFixture {
     private Detector secondaryDoorDetector;
     private Policy mainDoorIntrusionPolicy;
     private Policy intrusionPolicy;
+    private Detector movementDetector;
 
     private static final String DEFAULT_PIN = "12345";
     private static final String AN_ADDRESS = "123 fausse rue";
     private static final String RAPID_PIN = "00";
     private static final String WRONG_PIN = "2222";
 
-    public void initServers() {
+    public void initServers() throws Exception {
         centralServer = new CentralServer();
         emergencyServer = new EmergencyServer();
+        centralServer.startServer();
+        emergencyServer.startServer();
     }
 
     public void stopServers() throws Exception {
@@ -49,13 +54,13 @@ public class TestFixture {
         alarmSystem.arm();
     }
 
-    public void triggerMainDoorIntrusion() {
+    public void openMainDoor() {
         mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem);
         mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
         mainDoorDetector.trigger();
     }
 
-    public void triggerSecondaryDoorIntrusion() {
+    public void openSecondaryDoor() {
         intrusionPolicy = new IntrusionPolicy(alarmSystem);
         secondaryDoorDetector = new Detector(intrusionPolicy);
         secondaryDoorDetector.trigger();
@@ -66,9 +71,7 @@ public class TestFixture {
     }
 
     public void assertAlarmSystemIsArmed() {
-        // FIXME je ne suis pas capable d'importer org.junit.Assert parce
-        // qu'eclipse supprime mes imports WTF
-        org.junit.Assert.assertTrue(alarmSystem.isArmed()
+        assertTrue(alarmSystem.isArmed()
                 || alarmSystem.isInTheProcessOfBeingArmed());
     }
 
@@ -81,15 +84,7 @@ public class TestFixture {
     }
 
     public void assertAlarmSystemIsNotArmed() {
-        org.junit.Assert.assertFalse(alarmSystem.isArmed()
-                || alarmSystem.isInTheProcessOfBeingArmed());
-    }
-
-    public void openMainDoor() {
-        mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem);
-        mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
-
-        mainDoorDetector.trigger();
+        org.junit.Assert.assertFalse(alarmSystem.isArmed());
     }
 
     public void disarmSystemWithGoodNIP() {
@@ -104,5 +99,11 @@ public class TestFixture {
         intrusionPolicy = new IntrusionPolicy(alarmSystem);
         movementDetector = new Detector(intrusionPolicy);
 
+    }
+
+    public void waitThirtySeconds() throws InterruptedException {
+        Thread t = new Thread();
+        t.start();
+        t.sleep(THIRTY_SECONDS);
     }
 }
