@@ -9,6 +9,8 @@ import org.junit.Test;
 import ca.ulaval.glo4002.devices.InvalidPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
+import com.sun.jersey.api.client.Client;
+
 public class TestArmViaKeypad {
 
     private static final int THIRTY_SECONDS = 30000;
@@ -50,7 +52,25 @@ public class TestArmViaKeypad {
     @Test
     public void thirtySecondsDelayAfterArmingSystemBeforeArming() throws Exception {
         fixture.initServers();
+
         fixture.waitSeconds(FIFTEEN_SECONDS);
+
+        Client client = Client.create();
+
+        // WebResource webResource =
+        // client.resource("http://localhost:8080/inscription/");
+        //
+        // String input = "GODO";
+        //
+        // ClientResponse response =
+        // webResource.type("application/json").post(ClientResponse.class,
+        // input);
+        //
+        // if (response.getStatus() != 200) {
+        // throw new RuntimeException("Failed : HTTP error code : " +
+        // response.getStatus());
+        // }
+
         fixture.initializeAlarmSystem();
 
         fixture.armSystemWithDefaultPIN();
@@ -59,7 +79,6 @@ public class TestArmViaKeypad {
         fixture.waitSeconds(THIRTY_SECONDS);
 
         fixture.verifyPoliceWasNotCalled();
-
         fixture.stopServers();
     }
 }

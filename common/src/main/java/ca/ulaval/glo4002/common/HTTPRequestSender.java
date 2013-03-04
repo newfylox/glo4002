@@ -17,12 +17,12 @@ public abstract class HTTPRequestSender {
     protected WebResource webResource;
 
     public HTTPRequestSender(int port) {
-        serverURL = String.format("%s:%s/", serverURL, port);
+        serverURL = String.format("%s:%s", serverURL, port);
         Client client = Client.create();
         webResource = client.resource(serverURL);
     }
 
-    protected HTTPRequestSender(final WebResource ressource) {
+    protected HTTPRequestSender(WebResource ressource) {
         webResource = ressource;
     }
 
