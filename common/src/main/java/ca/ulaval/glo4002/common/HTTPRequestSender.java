@@ -17,7 +17,7 @@ public abstract class HTTPRequestSender {
     protected WebResource webResource;
 
     public HTTPRequestSender(int port) {
-        serverURL = String.format("%s%s", serverURL, "/");
+        serverURL = String.format("%s:%s/", serverURL, port);
         Client client = Client.create();
         webResource = client.resource(serverURL);
     }
