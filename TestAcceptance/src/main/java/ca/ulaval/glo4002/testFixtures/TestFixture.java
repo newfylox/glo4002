@@ -71,8 +71,7 @@ public class TestFixture {
     }
 
     public void assertAlarmSystemIsArmed() {
-        assertTrue(alarmSystem.isArmed()
-                || alarmSystem.isInTheProcessOfBeingArmed());
+        assertTrue(alarmSystem.isArmed() || alarmSystem.isInTheProcessOfBeingArmed());
     }
 
     public void armSystemWithDefaultPIN() {

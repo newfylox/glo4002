@@ -8,13 +8,12 @@ public class Keypad {
     private String validPIN;
     private AlarmSystem alarmSystem;
 
-    public Keypad(final AlarmSystem alarmSystem) {
+    public Keypad(AlarmSystem alarmSystem) {
         this.alarmSystem = alarmSystem;
         this.validPIN = DEFAULT_PIN;
     }
 
-    public void armSystem(final String PIN) throws BadStateException,
-            InvalidPINException {
+    public void armSystem(String PIN) throws BadStateException, InvalidPINException {
         if (isPINValid(PIN)) {
             alarmSystem.arm();
         } else {
@@ -22,7 +21,7 @@ public class Keypad {
         }
     }
 
-    public void disarmSystem(final String PIN) throws InvalidPINException {
+    public void disarmSystem(String PIN) throws InvalidPINException {
         if (isPINValid(PIN)) {
             alarmSystem.disarm();
         } else {
@@ -30,8 +29,7 @@ public class Keypad {
         }
     }
 
-    public void changePIN(final String PIN, final String newPIN)
-            throws InvalidPINException {
+    public void changePIN(String PIN, String newPIN) throws InvalidPINException {
         if (isPINValid(PIN)) {
             checkPINFormat(newPIN);
             validPIN = newPIN;
@@ -41,14 +39,13 @@ public class Keypad {
     }
 
     // Protected for testing purposes
-    protected boolean isPINValid(final String newPIN) {
+    protected boolean isPINValid(String newPIN) {
         return (validPIN == newPIN || RAPID_PIN == newPIN);
     }
 
-    private void checkPINFormat(final String PIN) {
+    private void checkPINFormat(String PIN) {
         if (!PIN.matches("^[0-9]{5}$")) {
-            throw new PINFormatForbiddenException(
-                    "The format of the PIN is incorrect.");
+            throw new PINFormatForbiddenException("The format of the PIN is incorrect.");
         }
     }
 }

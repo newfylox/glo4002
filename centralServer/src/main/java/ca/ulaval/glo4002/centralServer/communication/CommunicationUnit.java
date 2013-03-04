@@ -16,7 +16,7 @@ public class CommunicationUnit {
         resource = generateResourceURL(communicationType);
     }
 
-    public void sendMessageToEmergencyServer(final User obtainedUser) {
+    public void sendMessageToEmergencyServer(User obtainedUser) {
         String messageToSend = obtainedUser.getAddress();
         postRequestSender.sendRequest(resource, messageToSend);
 

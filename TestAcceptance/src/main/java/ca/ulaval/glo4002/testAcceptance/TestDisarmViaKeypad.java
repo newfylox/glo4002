@@ -9,6 +9,7 @@ import ca.ulaval.glo4002.devices.InvalidPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestDisarmViaKeypad {
+
     private TestFixture fixture;
 
     @Before

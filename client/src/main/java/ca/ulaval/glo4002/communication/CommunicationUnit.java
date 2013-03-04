@@ -17,10 +17,9 @@ public class CommunicationUnit {
     protected String resource;
 
     protected POSTRequestSender postRequestSender = new POSTRequestSender();
-    protected GETRequestSender getRequestSender = new GETRequestSender();
-    ;
+    protected GETRequestSender getRequestSender = new GETRequestSender();;
 
-    public CommunicationUnit(final int userID, final CommunicationType communicationType) {
+    public CommunicationUnit(int userID, CommunicationType communicationType) {
         resource = generateResourceURL(userID, communicationType);
     }
 
@@ -28,7 +27,7 @@ public class CommunicationUnit {
         resource = CommunicationType.REGISTRATION.toString();
     }
 
-    private String generateResourceURL(final int userID, final CommunicationType communicationType) {
+    private String generateResourceURL(int userID, CommunicationType communicationType) {
         return String.format("%s/%d", communicationType.toString().toLowerCase(), userID);
     }
 
@@ -36,7 +35,7 @@ public class CommunicationUnit {
         getRequestSender.sendRequest(resource);
     }
 
-    public void sendMessageToCentralServer(final HashMap<String, String> attributes) {
+    public void sendMessageToCentralServer(HashMap<String, String> attributes) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
         postRequestSender.sendRequest(resource, messageToSend);
     }

@@ -9,6 +9,7 @@ import ca.ulaval.glo4002.centralServer.main.CentralServer;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestSendAlarmSignalWhenIntrusion {
+
     private TestFixture fixture;
     private CentralServer centralServer;
 
@@ -30,8 +31,7 @@ public class TestSendAlarmSignalWhenIntrusion {
     }
 
     @Test
-    public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion()
-            throws InterruptedException {
+    public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() throws InterruptedException {
         fixture.openMainDoor();
 
         fixture.verifyPoliceWasCalled();
@@ -42,7 +42,7 @@ public class TestSendAlarmSignalWhenIntrusion {
     public void emergenciesCalledWhenSecondaryDoorIntrusion() {
         fixture.openSecondaryDoor();
 
-        // fixture.verifyPoliceWasCalled();
+        fixture.verifyPoliceWasCalled();
     }
 
     @Ignore
@@ -50,7 +50,7 @@ public class TestSendAlarmSignalWhenIntrusion {
     public void emergenciesCalledWhenMovementDetected() {
         fixture.triggerMovementDetector();
 
-        // fixture.verifyPoliceWasCalled();
+        fixture.verifyPoliceWasCalled();
     }
 
 }

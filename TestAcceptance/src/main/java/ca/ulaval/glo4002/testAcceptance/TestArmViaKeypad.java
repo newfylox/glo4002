@@ -43,8 +43,7 @@ public class TestArmViaKeypad {
     }
 
     @Test
-    public void thirtySecondsDelayAfterArmingSystemBeforeArming()
-            throws InterruptedException {
+    public void thirtySecondsDelayAfterArmingSystemBeforeArming() throws InterruptedException {
         fixture.armSystemWithDefaultPIN();
 
         fixture.openSecondaryDoor();

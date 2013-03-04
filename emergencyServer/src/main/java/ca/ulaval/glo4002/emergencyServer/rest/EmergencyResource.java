@@ -10,7 +10,7 @@ public class EmergencyResource {
 
     @POST
     @Path("/police/")
-    public String treatRequest(final String helpRequesterInformations) {
+    public String treatRequest(String helpRequesterInformations) {
         return RESPONSE_TO_POST_REQUEST;
     }
 }

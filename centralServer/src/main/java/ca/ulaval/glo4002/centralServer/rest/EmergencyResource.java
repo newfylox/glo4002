@@ -21,7 +21,7 @@ public class EmergencyResource {
 
     @GET
     @Path("{userId}/Police")
-    public int askForPoliceAssistance(@PathParam("userId") final String userIdPassedByGetRequest) {
+    public int askForPoliceAssistance(@PathParam("userId") String userIdPassedByGetRequest) {
         try {
             policeTreatment.processRequest(userIdPassedByGetRequest);
         } catch (UserNotFoundException userNotFoundException) {

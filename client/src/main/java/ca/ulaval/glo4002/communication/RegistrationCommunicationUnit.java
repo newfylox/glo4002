@@ -6,7 +6,7 @@ public class RegistrationCommunicationUnit extends CommunicationUnit {
 
     private String response;
 
-    public void sendRegistrationRequest(final HashMap<String, String> attributes) {
+    public void sendRegistrationRequest(HashMap<String, String> attributes) {
         String message = messageEncoder.generateEncodedMessage(attributes);
         response = postRequestSender.sendRequest(resource, message);
     }

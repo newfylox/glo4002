@@ -9,11 +9,11 @@ public class POSTRequestSender extends HTTPRequestSender {
         super();
     }
 
-    protected POSTRequestSender(final WebResource ressource) {
+    protected POSTRequestSender(WebResource ressource) {
         super(ressource);
     }
 
-    public String sendRequest(final String resource, final String messageToSend) {
+    public String sendRequest(String resource, String messageToSend) {
         changeWebResource(resource);
         ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class, messageToSend);
 

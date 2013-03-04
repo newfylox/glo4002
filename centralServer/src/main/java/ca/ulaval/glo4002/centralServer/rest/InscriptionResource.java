@@ -11,7 +11,7 @@ public class InscriptionResource {
     private UserRegistrar userRegistrar = new UserRegistrar();
 
     @POST
-    public int registerUser(final String userInformation) {
+    public int registerUser(String userInformation) {
         int newUserId = userRegistrar.generateUserID();
         userRegistrar.registerUser(newUserId, userInformation);
         return newUserId;

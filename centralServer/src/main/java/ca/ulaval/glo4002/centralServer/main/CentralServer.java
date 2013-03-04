@@ -29,11 +29,9 @@ public class CentralServer {
         server.start();
     }
 
-    public ServletHolder createJerseyServletHolder(final String packageName) {
-        ServletHolder jerseyServletHolder = new ServletHolder(
-                ServletContainer.class);
-        jerseyServletHolder.setInitParameter(PARAM_RESSOURCE_CONFIG_CLASS,
-                PACKAGE_RESSOURCE_CONFIG);
+    public ServletHolder createJerseyServletHolder(String packageName) {
+        ServletHolder jerseyServletHolder = new ServletHolder(ServletContainer.class);
+        jerseyServletHolder.setInitParameter(PARAM_RESSOURCE_CONFIG_CLASS, PACKAGE_RESSOURCE_CONFIG);
         jerseyServletHolder.setInitParameter(PARAM_PACKAGE, packageName);
         return jerseyServletHolder;
     }

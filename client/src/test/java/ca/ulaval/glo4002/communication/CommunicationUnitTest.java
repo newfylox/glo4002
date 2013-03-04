@@ -36,11 +36,11 @@ public class CommunicationUnitTest {
     @Test
     public void callsSendPostRequestWhenSendingWithAttributes() {
         HashMap<String, String> attributes = new HashMap<String, String>();
-        
+
         communicationUnit.sendMessageToCentralServer(attributes);
         verify(postRequestSender).sendRequest(anyString(), anyString());
     }
-    
+
     @Test
     public void callsSendGetRequestWhenSending() {
         communicationUnit.sendMessageToCentralServer();

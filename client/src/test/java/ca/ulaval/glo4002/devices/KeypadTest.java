@@ -28,8 +28,7 @@ public class KeypadTest {
     }
 
     @Test
-    public void canArmSystemWhenPINIsValid() throws BadStateException,
-            InvalidPINException {
+    public void canArmSystemWhenPINIsValid() throws BadStateException, InvalidPINException {
         keypad.armSystem(VALID_PIN);
         Mockito.verify(alarmSystem).arm();
     }
@@ -41,8 +40,7 @@ public class KeypadTest {
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenArmingSystemIfPINIsNotValidThrowAnException()
-            throws InvalidPINException, BadStateException {
+    public void whenArmingSystemIfPINIsNotValidThrowAnException() throws InvalidPINException, BadStateException {
         keypad.armSystem(INVALID_PIN);
     }
 
@@ -53,8 +51,7 @@ public class KeypadTest {
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenDisarmingSystemIfPINIsNotValidThrowAnException()
-            throws InvalidPINException {
+    public void whenDisarmingSystemIfPINIsNotValidThrowAnException() throws InvalidPINException {
         keypad.disarmSystem(INVALID_PIN);
     }
 
@@ -65,14 +62,12 @@ public class KeypadTest {
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenChangingPINIfPINIsNotValidThrowAnException()
-            throws InvalidPINException {
+    public void whenChangingPINIfPINIsNotValidThrowAnException() throws InvalidPINException {
         keypad.changePIN(INVALID_PIN, NEW_PIN);
     }
 
     @Test(expected = PINFormatForbiddenException.class)
-    public void whenChangingPINIfNewPINIsNotOfTheRightFormatThrowAnException()
-            throws PINFormatForbiddenException {
+    public void whenChangingPINIfNewPINIsNotOfTheRightFormatThrowAnException() throws PINFormatForbiddenException {
         keypad.changePIN(VALID_PIN, FORBIDDEN_PIN);
     }
 }
