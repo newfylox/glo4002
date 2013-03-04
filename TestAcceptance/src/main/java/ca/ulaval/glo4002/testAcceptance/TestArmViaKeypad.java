@@ -44,6 +44,6 @@ public class TestArmViaKeypad {
 
         fixture.waitThirtySeconds();
 
-        // fixture.assertNoIntrusion();
+        fixture.assertNoIntrusion();
     }
 }

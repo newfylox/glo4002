@@ -25,7 +25,6 @@ public class TestSendAlarmSignalWhenIntrusion {
         fixture.stopServers();
     }
 
-    @Ignore
     @Test
     public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() {
         fixture.triggerMainDoorIntrusion();

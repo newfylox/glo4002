@@ -17,7 +17,6 @@ public class TestFixture {
     private Keypad keypad;
     private Detector mainDoorDetector;
     private Detector secondaryDoorDetector;
-    private Detector movementDetector;
     private Policy mainDoorIntrusionPolicy;
     private Policy intrusionPolicy;
 
