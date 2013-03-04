@@ -27,10 +27,10 @@ public class TestDisarmViaKeypad {
         fixture.assertAlarmSystemIsNotArmed();
     }
 
-    @Test(expected = InvalidPINException.class)
+    @Test
     public void systemIsArmedWhenDisarmedWithWrongNIP() {
         try {
-            fixture.disarmSystemWithWrongNIP();
+            fixture.disarmSystemWithWrongPIN();
             fail("InvalidPINException expected.");
         } catch (InvalidPINException e) {
             fixture.assertAlarmSystemIsArmed();

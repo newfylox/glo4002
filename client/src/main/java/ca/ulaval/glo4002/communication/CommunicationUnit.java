@@ -8,6 +8,8 @@ import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
 public class CommunicationUnit {
 
+    private static final int CENTRAL_SERVER_PORT = 8080;
+
     public static enum CommunicationType {
         FIRE, INTRUSION, REGISTRATION
     };
@@ -16,8 +18,8 @@ public class CommunicationUnit {
 
     protected String resource;
 
-    protected POSTRequestSender postRequestSender = new POSTRequestSender();
-    protected GETRequestSender getRequestSender = new GETRequestSender();;
+    protected POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
+    protected GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);;
 
     public CommunicationUnit(int userID, CommunicationType communicationType) {
         resource = generateResourceURL(userID, communicationType);

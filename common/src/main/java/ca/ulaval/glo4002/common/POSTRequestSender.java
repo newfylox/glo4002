@@ -5,12 +5,12 @@ import com.sun.jersey.api.client.WebResource;
 
 public class POSTRequestSender extends HTTPRequestSender {
 
-    public POSTRequestSender() {
-        super();
+    public POSTRequestSender(int port) {
+        super(port);
     }
 
-    protected POSTRequestSender(WebResource ressource) {
-        super(ressource);
+    protected POSTRequestSender(WebResource resource) {
+        super(resource);
     }
 
     public String sendRequest(String resource, String messageToSend) {

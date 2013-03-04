@@ -5,8 +5,8 @@ import com.sun.jersey.api.client.WebResource;
 
 public class GETRequestSender extends HTTPRequestSender {
 
-    public GETRequestSender() {
-        super();
+    public GETRequestSender(int port) {
+        super(port);
     }
 
     protected GETRequestSender(WebResource ressource) {

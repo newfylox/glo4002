@@ -10,15 +10,18 @@ import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestSendAlarmSignalWhenIntrusion {
 
+    private static final int THIRTY_SECONDS = 30000;
     private TestFixture fixture;
     private CentralServer centralServer;
+
+    private final int FIFTEEN_SECONDS = 15000;
 
     @Before
     public void setUp() throws Exception {
         fixture = new TestFixture();
         fixture.initServers();
 
-        fixture.waitThirtySeconds();
+        fixture.waitSeconds(FIFTEEN_SECONDS);
 
         fixture.createAlarmSystem();
         fixture.initializeAlarmSystem();
@@ -30,9 +33,12 @@ public class TestSendAlarmSignalWhenIntrusion {
         fixture.stopServers();
     }
 
+    @Ignore
     @Test
     public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() throws InterruptedException {
         fixture.openMainDoor();
+
+        fixture.waitSeconds(THIRTY_SECONDS);
 
         fixture.verifyPoliceWasCalled();
     }

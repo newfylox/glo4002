@@ -2,6 +2,7 @@ package ca.ulaval.glo4002.testAcceptance;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +11,9 @@ import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestArmViaKeypad {
 
+    private static final int THIRTY_SECONDS = 30000;
+    private static final int FIFTEEN_SECONDS = 15000;
+
     private TestFixture fixture;
 
     @Before
@@ -17,6 +21,9 @@ public class TestArmViaKeypad {
         fixture = new TestFixture();
         fixture.createAlarmSystem();
     }
+
+    @After
+    public void teardown() throws Exception {}
 
     @Test
     public void systemIsArmedWithFastPIN() {
@@ -39,17 +46,21 @@ public class TestArmViaKeypad {
         } catch (InvalidPINException e) {
             fixture.assertAlarmSystemIsNotArmed();
         }
-
     }
 
     @Test
-    public void thirtySecondsDelayAfterArmingSystemBeforeArming() throws InterruptedException {
+    public void thirtySecondsDelayAfterArmingSystemBeforeArming() throws Exception {
+        fixture.initServers();
+        fixture.waitSeconds(FIFTEEN_SECONDS);
+        fixture.initializeAlarmSystem();
+
         fixture.armSystemWithDefaultPIN();
 
         fixture.openSecondaryDoor();
+        fixture.waitSeconds(THIRTY_SECONDS);
 
-        fixture.waitThirtySeconds();
+        fixture.verifyPoliceWasNotCalled();
 
-        fixture.verifyPoliceWasCalled();
+        fixture.stopServers();
     }
 }

@@ -12,7 +12,6 @@ import ca.ulaval.glo4002.policies.Policy;
 
 public class TestFixture {
 
-    private static final int THIRTY_SECONDS = 30000;
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
     private AlarmSystem alarmSystem;
@@ -90,7 +89,7 @@ public class TestFixture {
         keypad.disarmSystem(DEFAULT_PIN);
     }
 
-    public void disarmSystemWithWrongNIP() {
+    public void disarmSystemWithWrongPIN() {
         keypad.disarmSystem(WRONG_PIN);
     }
 
@@ -100,9 +99,17 @@ public class TestFixture {
 
     }
 
-    public void waitThirtySeconds() throws InterruptedException {
+    public void waitSeconds(int seconds) throws InterruptedException {
         Thread t = new Thread();
         t.start();
-        t.sleep(THIRTY_SECONDS);
+        t.sleep(seconds);
+    }
+
+    public void verifyPoliceWasCalled() {
+        assertTrue(EmergencyServer.wasCalled);
+    }
+
+    public void verifyPoliceWasNotCalled() {
+        assertFalse(EmergencyServer.wasCalled);
     }
 }
