@@ -1,9 +1,9 @@
 package ca.ulaval.glo4002.testAcceptance;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import ca.ulaval.glo4002.devices.InvalidPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestDisarmViaKeypad {
@@ -24,8 +24,7 @@ public class TestDisarmViaKeypad {
         fixture.assertAlarmSystemIsNotArmed();
     }
 
-    @Ignore
-    @Test
+    @Test(expected = InvalidPINException.class)
     public void systemIsArmedWhenDisarmedWithWrongNIP() {
         fixture.disarmSystemWithWrongNIP();
 
