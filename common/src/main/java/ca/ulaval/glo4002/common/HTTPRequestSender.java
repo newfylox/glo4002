@@ -11,21 +11,19 @@ public abstract class HTTPRequestSender {
 
     protected int port;
 
-    protected WebResource webResource;
+    protected Client client;
 
     public HTTPRequestSender(int port) {
         serverURL = String.format("%s:%s", serverURL, port);
-        Client client = Client.create();
-        webResource = client.resource(serverURL);
+        client = Client.create();
     }
 
-    protected HTTPRequestSender(WebResource ressource) {
-        webResource = ressource;
+    protected HTTPRequestSender(int port, Client client) {
+        serverURL = String.format("%s:%s", serverURL, port);
+        this.client = client;
     }
 
-    protected void changeWebResource(String resource) {
-        Client client = Client.create();
-        webResource = client.resource(String.format("%s/%s", serverURL, resource));
-        System.out.println(webResource.toString());
+    protected WebResource changeWebResource(String resource) {
+        return client.resource(String.format("%s/%s", serverURL, resource));
     }
 }
