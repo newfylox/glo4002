@@ -5,10 +5,8 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
@@ -16,22 +14,25 @@ import com.sun.jersey.api.client.WebResource.Builder;
 public class GETRequestSenderTest {
 
     private static final int AN_HTTP_ERROR_CODE = 500;
+    private static final int A_PORT = 8080;
 
-    @Mock
-    private WebResource resource;
+    private Client client;
 
-    @InjectMocks
     private GETRequestSender getRequestSender;
 
     @Before
     public void initGETRequestSender() {
-        MockitoAnnotations.initMocks(this);
+        client = mock(Client.class);
+        getRequestSender = new GETRequestSender(A_PORT, client);
     }
 
     @Test(expected = HTTPException.class)
     public void throwsHTTPExceptionWhenResponseIsNotOk() {
-        ClientResponse clientResponse = mock(ClientResponse.class);
+        WebResource resource = mock(WebResource.class);
         Builder builder = mock(Builder.class);
+        ClientResponse clientResponse = mock(ClientResponse.class);
+        
+        doReturn(resource).when(client).resource(anyString());
         doReturn(builder).when(resource).type(anyString());
         doReturn(clientResponse).when(builder).get(ClientResponse.class);
         doReturn(AN_HTTP_ERROR_CODE).when(clientResponse).getStatus();

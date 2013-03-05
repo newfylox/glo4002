@@ -1,27 +1,26 @@
 package ca.ulaval.glo4002.common;
 
+import static org.mockito.Mockito.*;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.Client;
 
 public class HTTPRequestSenderTest {
 
     private static final String INVALID_URL = "@!#!(%@*#$)(!)@#~~{}>>..";
     private static final String A_MESSAGE = "message";
+    private static final int A_PORT = 8080;
 
-    @Mock
-    private WebResource resource;
+    private Client client;
 
-    @InjectMocks
     private POSTRequestSender postRequestSender;
 
     @Before
     public void initHomeConnectionHandler() {
-        MockitoAnnotations.initMocks(this);
+        client = mock(Client.class);
+        postRequestSender = new POSTRequestSender(A_PORT, client);
     }
 
     @Test(expected = RuntimeException.class)
