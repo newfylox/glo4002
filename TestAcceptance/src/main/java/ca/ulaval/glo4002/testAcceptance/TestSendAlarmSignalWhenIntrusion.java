@@ -1,7 +1,9 @@
 package ca.ulaval.glo4002.testAcceptance;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
@@ -9,26 +11,33 @@ import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestSendAlarmSignalWhenIntrusion {
 
-    private static final int THIRTY_SECONDS = 30000;
-    private TestFixture fixture;
+    private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
+    private static TestFixture fixture;
     private CentralServer centralServer;
 
     private final int FIFTEEN_SECONDS = 15000;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUpClass() throws Exception {
         fixture = new TestFixture();
         fixture.initServers();
+    }
 
-        fixture.waitSeconds(FIFTEEN_SECONDS);
-
+    @Before
+    public void setUp() throws Exception {
+        // fixture.waitSeconds(FIFTEEN_SECONDS);
         fixture.createAlarmSystem();
         fixture.initializeAlarmSystem();
         fixture.armSystem();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void teardown() throws Exception {
+        fixture.setReceivedCallToFalse();
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
         fixture.stopServers();
     }
 
@@ -36,7 +45,9 @@ public class TestSendAlarmSignalWhenIntrusion {
     public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() throws InterruptedException {
         fixture.openMainDoor();
 
-        fixture.waitSeconds(THIRTY_SECONDS);
+        fixture.verifyPoliceWasNotCalled();
+
+        fixture.verifyPoliceWasCalledAfterMilliSeconds(THIRTY_SECONDS_IN_MILLISECONDS);
 
         fixture.verifyPoliceWasCalled();
     }
@@ -54,5 +65,4 @@ public class TestSendAlarmSignalWhenIntrusion {
 
         fixture.verifyPoliceWasCalled();
     }
-
 }

@@ -41,12 +41,20 @@ public class AlarmSystem implements DelayTimerDelegate {
         return suspended;
     }
 
-    public void arm() throws BadStateException {
-        if (!ready) {
-            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
+    public void armWithoutDelay() {
+        if (ready) {
+            armed = true;
         } else {
+            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
+        }
+    }
+
+    public void armWithThirtySecondsDelay() throws BadStateException {
+        if (ready) {
             suspended = true;
             startDelay();
+        } else {
+            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
         }
     }
 

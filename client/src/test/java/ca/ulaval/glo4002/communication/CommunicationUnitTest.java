@@ -18,7 +18,7 @@ import ca.ulaval.glo4002.communication.CommunicationUnit.CommunicationType;
 public class CommunicationUnitTest {
 
     private static final int USER_ID = 1;
-    private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.INTRUSION;
+    private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.POLICE;
 
     @Mock
     private POSTRequestSender postRequestSender;

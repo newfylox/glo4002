@@ -49,19 +49,15 @@ public class TestArmViaKeypad {
     }
 
     @Test
-    public void thirtySecondsDelayAfterArmingSystemBeforeArming() throws Exception {
+    public void alarmSystemWaitsThirtySecondsBeforeArmingViaKeypad() throws Exception {
         fixture.initServers();
-
-        fixture.waitSeconds(TEN_SECOND);
-
-        fixture.AssertServerIsRunning();
 
         fixture.initializeAlarmSystem();
 
         fixture.armSystemWithDefaultPIN();
 
         fixture.openSecondaryDoor();
-        fixture.waitSeconds(THIRTY_SECONDS);
+        fixture.verifyPoliceWasCalledAfterMilliSeconds(THIRTY_SECONDS);
 
         fixture.verifyPoliceWasNotCalled();
         fixture.stopServers();

@@ -9,7 +9,7 @@ public class PoliceTreatment extends EmergencyTreatment {
 
     public PoliceTreatment() {
         super();
-        communicationUnit = new CommunicationUnit(CommunicationType.INTRUSION);
+        communicationUnit = new CommunicationUnit(CommunicationType.POLICE);
     }
 
     public void processRequest(String userIdPassedByGetRequest) throws UserNotFoundException {

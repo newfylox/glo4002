@@ -1,6 +1,5 @@
 package ca.ulaval.glo4002.communication;
 
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import ca.ulaval.glo4002.common.GETRequestSender;
@@ -12,7 +11,7 @@ public class CommunicationUnit {
     private static final int CENTRAL_SERVER_PORT = 8080;
 
     public static enum CommunicationType {
-        FIRE, INTRUSION, REGISTRATION
+        FIRE, POLICE, REGISTRATION
     };
 
     protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
@@ -29,7 +28,7 @@ public class CommunicationUnit {
     protected CommunicationUnit() {}
 
     private String generateResourceURL(int userID, CommunicationType communicationType) {
-        return String.format("%s/%d", communicationType.toString().toLowerCase(), userID);
+        return String.format("client/%d/%s", userID, communicationType.toString().toLowerCase());
     }
 
     public void sendMessageToCentralServer() {
@@ -38,11 +37,6 @@ public class CommunicationUnit {
 
     public void sendMessageToCentralServer(HashMap<String, String> attributes) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
-        try {
-            postRequestSender.sendRequest(resource, messageToSend);
-        } catch (URISyntaxException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        postRequestSender.sendRequest(resource, messageToSend);
     }
 }

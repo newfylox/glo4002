@@ -1,6 +1,9 @@
 package ca.ulaval.glo4002.testFixtures;
 
 import static org.junit.Assert.*;
+
+import java.util.concurrent.TimeUnit;
+
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
@@ -9,6 +12,8 @@ import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
 import ca.ulaval.glo4002.policies.IntrusionPolicy;
 import ca.ulaval.glo4002.policies.MainDoorIntrusionPolicy;
 import ca.ulaval.glo4002.policies.Policy;
+
+import com.jayway.awaitility.Awaitility;
 
 public class TestFixture {
 
@@ -21,6 +26,7 @@ public class TestFixture {
     private Policy mainDoorIntrusionPolicy;
     private Policy intrusionPolicy;
     private Detector movementDetector;
+    private long startTime;
 
     private static final String DEFAULT_PIN = "12345";
     private static final String AN_ADDRESS = "123 fausse rue";
@@ -50,10 +56,12 @@ public class TestFixture {
     }
 
     public void armSystem() {
-        alarmSystem.arm();
+        alarmSystem.armWithoutDelay();
     }
 
     public void openMainDoor() {
+        startTime = System.currentTimeMillis();
+
         mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem);
         mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
         mainDoorDetector.trigger();
@@ -96,24 +104,33 @@ public class TestFixture {
     public void triggerMovementDetector() {
         intrusionPolicy = new IntrusionPolicy(alarmSystem);
         movementDetector = new Detector(intrusionPolicy);
-
+        movementDetector.trigger();
     }
 
-    public void waitSeconds(int seconds) throws InterruptedException {
-        Thread t = new Thread();
-        t.start();
-        t.sleep(seconds);
+    public void verifyPoliceWasCalledAfterMilliSeconds(int milliseconds) throws InterruptedException {
+        Awaitility.setDefaultTimeout(milliseconds, TimeUnit.SECONDS);
+        Awaitility.await().until(EmergencyServer.wasCalled());
+        long endTime = System.currentTimeMillis();
+
+        System.out.println(endTime - startTime);
+        System.out.println(milliseconds);
+        assertTrue(endTime - startTime >= milliseconds);
+        verifyPoliceWasCalled();
     }
 
     public void verifyPoliceWasCalled() {
-        assertTrue(EmergencyServer.wasCalled);
+        assertTrue(EmergencyServer.called);
     }
 
     public void verifyPoliceWasNotCalled() {
-        assertFalse(EmergencyServer.wasCalled);
+        assertFalse(EmergencyServer.called);
     }
 
     public void AssertServerIsRunning() {
         assertTrue(centralServer.isRunning());
+    }
+
+    public void setReceivedCallToFalse() {
+        EmergencyServer.called = false;
     }
 }

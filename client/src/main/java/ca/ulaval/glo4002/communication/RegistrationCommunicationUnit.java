@@ -1,6 +1,5 @@
 package ca.ulaval.glo4002.communication;
 
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 public class RegistrationCommunicationUnit extends CommunicationUnit {
@@ -16,12 +15,7 @@ public class RegistrationCommunicationUnit extends CommunicationUnit {
 
     public void sendRegistrationRequest(HashMap<String, String> attributes) {
         String message = messageEncoder.generateEncodedMessage(attributes);
-        try {
-            response = postRequestSender.sendRequest(resource, message);
-        } catch (URISyntaxException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        response = postRequestSender.sendRequest(resource, message);
     }
 
     public int retrieveUserID() {

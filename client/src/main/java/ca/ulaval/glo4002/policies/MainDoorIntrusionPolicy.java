@@ -15,7 +15,7 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
         super(alarmSystem);
         communicationUnit =
                             new CommunicationUnit(alarmSystem.getUserID(),
-                                                  CommunicationUnit.CommunicationType.INTRUSION);
+                                                  CommunicationUnit.CommunicationType.POLICE);
         delayTimer = new DelayTimer(this);
     }
 

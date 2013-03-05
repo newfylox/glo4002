@@ -15,6 +15,7 @@ public class GETRequestSender extends HTTPRequestSender {
 
     public String sendRequest(String resource) {
         changeWebResource(resource);
+        System.out.println(resource);
         ClientResponse response = webResource.type(APPLICATION_TYPE).get(ClientResponse.class);
 
         if (response.getStatus() != RESPONSE_OK) {

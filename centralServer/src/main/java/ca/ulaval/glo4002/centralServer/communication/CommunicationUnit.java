@@ -10,7 +10,7 @@ public class CommunicationUnit {
     private String resource;
 
     public static enum CommunicationType {
-        FIRE, INTRUSION
+        FIRE, POLICE
     };
 
     public CommunicationUnit(CommunicationType communicationType) {

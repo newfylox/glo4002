@@ -15,7 +15,7 @@ public class Keypad {
 
     public void armSystem(String PIN) throws BadStateException, InvalidPINException {
         if (isPINValid(PIN)) {
-            alarmSystem.arm();
+            alarmSystem.armWithThirtySecondsDelay();
         } else {
             throw new InvalidPINException("The PIN is wrong.");
         }

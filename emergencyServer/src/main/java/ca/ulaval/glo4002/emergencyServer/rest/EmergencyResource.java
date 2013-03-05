@@ -11,9 +11,9 @@ public class EmergencyResource {
     private static final String RESPONSE_TO_POST_REQUEST = "POST request received at emergency server";
 
     @POST
-    @Path("/police/")
+    @Path("police/")
     public String treatRequest(String helpRequesterInformations) {
-        EmergencyServer.wasCalled = true;
+        EmergencyServer.called = true;
         return RESPONSE_TO_POST_REQUEST;
     }
 }

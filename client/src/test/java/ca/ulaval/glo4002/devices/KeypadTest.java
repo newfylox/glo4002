@@ -30,13 +30,13 @@ public class KeypadTest {
     @Test
     public void canArmSystemWhenPINIsValid() throws BadStateException, InvalidPINException {
         keypad.armSystem(VALID_PIN);
-        Mockito.verify(alarmSystem).arm();
+        Mockito.verify(alarmSystem).armWithThirtySecondsDelay();
     }
 
     @Test
     public void canArmSystemWithRapidPIN() {
         keypad.armSystem(RAPID_PIN);
-        Mockito.verify(alarmSystem).arm();
+        Mockito.verify(alarmSystem).armWithThirtySecondsDelay();
     }
 
     @Test(expected = InvalidPINException.class)
