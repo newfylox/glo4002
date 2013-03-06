@@ -3,6 +3,8 @@
 */.project
 */.settings/*
 */target/*
+*/.checkstyle
+*.codepro
 *.aux
 *.log
 *.out

@@ -1,6 +1,7 @@
 package ca.ulaval.glo4002.common.requestSender;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public abstract class HTTPRequestSender {
@@ -21,6 +22,17 @@ public abstract class HTTPRequestSender {
         return client.resource(String.format("%s/%s", serverURL, resource));
     }
 
+    protected WebResource prepareRequest(String resource) {
+        WebResource webResource = changeWebResource(resource);
+        return webResource;
+    }
+
+    protected void treatAnswerFromRequest(ClientResponse response) {
+        if (response.getStatus() != RESPONSE_OK) {
+            throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
+        }
+    }
+    
     // For test purposes only
     protected HTTPRequestSender(int port, Client client) {
         serverURL = String.format("%s:%s", serverURL, port);
