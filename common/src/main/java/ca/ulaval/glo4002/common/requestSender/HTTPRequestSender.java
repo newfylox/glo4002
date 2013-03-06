@@ -17,13 +17,14 @@ public abstract class HTTPRequestSender {
         client = Client.create();
     }
 
+    protected WebResource changeWebResource(String resource) {
+        return client.resource(String.format("%s/%s", serverURL, resource));
+    }
+
+    // For test purposes only
     protected HTTPRequestSender(int port, Client client) {
         serverURL = String.format("%s:%s", serverURL, port);
         this.client = client;
-    }
-
-    protected WebResource changeWebResource(String resource) {
-        return client.resource(String.format("%s/%s", serverURL, resource));
     }
 
 }
