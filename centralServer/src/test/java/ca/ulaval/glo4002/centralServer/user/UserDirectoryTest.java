@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.centralServer.user;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -47,7 +48,8 @@ public class UserDirectoryTest {
         int firstID = userDirectory.generateNewId();
         int secondID = userDirectory.generateNewId();
 
-        assertFalse(firstID == secondID);
+        assertThat(firstID, is(not(secondID)));
+
     }
 
     @Test(expected = UserNotFoundException.class)
