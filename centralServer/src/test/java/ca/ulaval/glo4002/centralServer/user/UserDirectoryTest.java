@@ -49,7 +49,6 @@ public class UserDirectoryTest {
         int secondID = userDirectory.generateNewId();
 
         assertThat(firstID, is(not(secondID)));
-
     }
 
     @Test(expected = UserNotFoundException.class)
