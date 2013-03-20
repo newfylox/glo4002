@@ -9,81 +9,110 @@ import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate {
 
-    private static final int DELAY_IN_SECOND = 30;
+	private static final int DELAY_IN_SECOND = 30;
+	private static final String DEFAULT_PIN = "12345";
+	private static final String RAPID_PIN = "#0";
 
-    private int userID;
-    private boolean armed = false;
-    private boolean suspended = false;
-    private boolean ready = true;
-    private DelayTimer delayTimer = new DelayTimer(this);
+	private String validPIN = DEFAULT_PIN;
+	private int userID;
+	private boolean armed = false;
+	private boolean suspended = false;
+	private boolean ready = true;
+	private DelayTimer delayTimer = new DelayTimer(this);
 
-    public void registerToCentralServer(String address) {
-        RegistrationCommunicator registrationCommunicator = new RegistrationCommunicator();
-        HashMap<String, String> attributes = buildProtocol(address);
+	public void registerToCentralServer(String address) {
+		RegistrationCommunicator registrationCommunicator = new RegistrationCommunicator();
+		HashMap<String, String> attributes = buildProtocol(address);
 
-        registrationCommunicator.sendRegistrationRequest(attributes);
-        userID = registrationCommunicator.retrieveUserID();
-    }
+		registrationCommunicator.sendRegistrationRequest(attributes);
+		userID = registrationCommunicator.retrieveUserID();
+	}
 
-    public boolean isArmed() {
-        return armed;
-    }
+	public boolean validatePIN(String typedPIN) {
+		return (isValidPIN(typedPIN) || RAPID_PIN == typedPIN);
+	}
 
-    public boolean isInTheProcessOfBeingArmed() {
-        return suspended;
-    }
+	public void changePIN(String PIN, String newPIN) {
+		if (isValidPIN(PIN)) {
+			checkPINFormat(newPIN);
+			validPIN = newPIN;
+		} else {
+			throw new InvalidPINException("The PIN is invalid.");
+		}
+	}
 
-    public void armWithThirtySecondsDelay() {
-        if (ready) {
-            suspended = true;
-            startDelay();
-        } else {
-            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
-        }
-    }
+	private void checkPINFormat(String PIN) {
+		if (!PIN.matches("^[0-9]{5}$")) {
+			throw new PINFormatForbiddenException(
+					"The format of the PIN is incorrect.");
+		}
+	}
 
-    public void disarm() {
-        armed = false;
-        suspended = false;
-    }
+	private boolean isValidPIN(String PIN) {
+		return PIN == validPIN;
+	}
 
-    public void setNotReady() {
-        ready = false;
-    }
+	public boolean isArmed() {
+		return armed;
+	}
 
-    public void setReady() {
-        ready = true;
-    }
+	public boolean isInTheProcessOfBeingArmed() {
+		return suspended;
+	}
 
-    public int getUserID() {
-        return userID;
-    }
+	public void armWithThirtySecondsDelay() {
+		if (ready) {
+			suspended = true;
+			startDelay();
+		} else {
+			throw new BadStateException(
+					"System is not ready yet. Alarm system can't be armed.");
+		}
+	}
 
-    @Override
-    public void delayExpired() {
-        if (suspended) {
-            armed = true;
-            suspended = false;
-        }
-    }
+	public void disarm() {
+		armed = false;
+		suspended = false;
+	}
 
-    private void startDelay() {
-        delayTimer.startDelay(DELAY_IN_SECOND);
-    }
+	public void setNotReady() {
+		ready = false;
+	}
 
-    private HashMap<String, String> buildProtocol(String address) {
-        ProtocolBuilder protocolBuilder = new ProtocolBuilder();
-        protocolBuilder.addClientAddress(address);
-        return protocolBuilder.generate();
-    }
+	public void setReady() {
+		ready = true;
+	}
 
-    // For test purpose only
-    public void armWithoutDelay() {
-        if (ready) {
-            armed = true;
-        } else {
-            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
-        }
-    }
+	public int getUserID() {
+		return userID;
+	}
+
+	@Override
+	public void delayExpired() {
+		if (suspended) {
+			armed = true;
+			suspended = false;
+		}
+	}
+
+	private void startDelay() {
+		delayTimer.startDelay(DELAY_IN_SECOND);
+	}
+
+	private HashMap<String, String> buildProtocol(String address) {
+		ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+		protocolBuilder.addClientAddress(address);
+		return protocolBuilder.generate();
+	}
+
+	// For test purpose only
+	public void armWithoutDelay() {
+		if (ready) {
+			armed = true;
+		} else {
+			throw new BadStateException(
+					"System is not ready yet. Alarm system can't be armed.");
+		}
+	}
 
 }
