@@ -11,8 +11,6 @@ public class KeypadTest {
 
     private static final String NEW_PIN = "98765";
     private static final String VALID_PIN = "12345";
-    private static final String INVALID_PIN = "54321";
-    private static final String RAPID_PIN = "#0";
 
     private Keypad keypad;
 
@@ -25,8 +23,6 @@ public class KeypadTest {
         keypad = new Keypad(alarmSystem);
 
         doReturn(true).when(alarmSystem).validatePIN(VALID_PIN);
-        doReturn(true).when(alarmSystem).validatePIN(RAPID_PIN);
-        doReturn(false).when(alarmSystem).validatePIN(INVALID_PIN);
     }
 
     @Test
@@ -36,25 +32,9 @@ public class KeypadTest {
     }
 
     @Test
-    public void canArmSystemWithRapidPIN() {
-        keypad.armSystem(RAPID_PIN);
-        verify(alarmSystem).armWithThirtySecondsDelay();
-    }
-
-    @Test(expected = InvalidPINException.class)
-    public void whenArmingSystemIfPINIsNotValidThrowAnException() {
-        keypad.armSystem(INVALID_PIN);
-    }
-
-    @Test
     public void canDisarmSystemWhenPINIsValid() {
         keypad.disarmSystem(VALID_PIN);
         verify(alarmSystem).disarm();
-    }
-
-    @Test(expected = InvalidPINException.class)
-    public void whenDisarmingSystemIfPINIsNotValidThrowAnException() {
-        keypad.disarmSystem(INVALID_PIN);
     }
 
     @Test
