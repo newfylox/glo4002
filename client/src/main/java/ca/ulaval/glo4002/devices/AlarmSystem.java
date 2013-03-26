@@ -4,6 +4,8 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate {
+    
+    private enum StatusType { ARMED, SUSPENDED, DISARMED };
 
     private static final int DELAY_IN_SECOND = 30;
     private static final String DEFAULT_PIN = "12345";
@@ -11,8 +13,7 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     private String validPIN = DEFAULT_PIN;
     private int userID;
-    private boolean armed = false;
-    private boolean suspended = false;
+    private StatusType status = StatusType.DISARMED;
     private boolean ready = true;
     private DelayTimer delayTimer = new DelayTimer(this);
     
@@ -44,16 +45,16 @@ public class AlarmSystem implements DelayTimerDelegate {
     }
 
     public boolean isArmed() {
-        return armed;
+        return status == StatusType.ARMED;
     }
 
     public boolean isInTheProcessOfBeingArmed() {
-        return suspended;
+        return status == StatusType.SUSPENDED;
     }
 
     public void armWithThirtySecondsDelay() {
         if (ready) {
-            suspended = true;
+            status = StatusType.SUSPENDED;
             startDelay();
         } else {
             throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
@@ -61,8 +62,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     }
 
     public void disarm() {
-        armed = false;
-        suspended = false;
+        status = StatusType.DISARMED;
     }
 
     public void setNotReady() {
@@ -79,9 +79,8 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     @Override
     public void delayExpired() {
-        if (suspended) {
-            armed = true;
-            suspended = false;
+        if (isInTheProcessOfBeingArmed()) {
+            status = StatusType.ARMED;
         }
     }
 
@@ -92,7 +91,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     // For test purpose only
     public void armWithoutDelay() {
         if (ready) {
-            armed = true;
+            status = StatusType.ARMED;
         } else {
             throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
         }
