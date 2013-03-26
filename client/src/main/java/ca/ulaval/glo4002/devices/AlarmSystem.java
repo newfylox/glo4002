@@ -1,9 +1,5 @@
 package ca.ulaval.glo4002.devices;
 
-import java.util.HashMap;
-
-import ca.ulaval.glo4002.communication.ProtocolBuilder;
-import ca.ulaval.glo4002.communication.RegistrationCommunicator;
 import ca.ulaval.glo4002.utilities.DelayTimer;
 import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
@@ -19,13 +15,9 @@ public class AlarmSystem implements DelayTimerDelegate {
     private boolean suspended = false;
     private boolean ready = true;
     private DelayTimer delayTimer = new DelayTimer(this);
-
-    public void registerToCentralServer(String address) {
-        RegistrationCommunicator registrationCommunicator = new RegistrationCommunicator();
-        HashMap<String, String> attributes = buildProtocol(address);
-
-        registrationCommunicator.sendRegistrationRequest(attributes);
-        userID = registrationCommunicator.retrieveUserID();
+    
+    public AlarmSystem(int userID) {
+        this.userID = userID;
     }
 
     public boolean validatePIN(String typedPIN) {
@@ -95,12 +87,6 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     private void startDelay() {
         delayTimer.startDelay(DELAY_IN_SECOND);
-    }
-
-    private HashMap<String, String> buildProtocol(String address) {
-        ProtocolBuilder protocolBuilder = new ProtocolBuilder();
-        protocolBuilder.addClientAddress(address);
-        return protocolBuilder.generate();
     }
 
     // For test purpose only
