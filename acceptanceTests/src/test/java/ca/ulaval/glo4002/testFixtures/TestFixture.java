@@ -6,11 +6,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
+import ca.ulaval.glo4002.communication.Registrar;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
 import ca.ulaval.glo4002.devices.Keypad;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
-import ca.ulaval.glo4002.main.Main;
 import ca.ulaval.glo4002.policies.IntrusionPolicy;
 import ca.ulaval.glo4002.policies.MainDoorIntrusionPolicy;
 import ca.ulaval.glo4002.policies.Policy;
@@ -50,7 +50,8 @@ public class TestFixture {
     }
 
     public void createAlarmSystem() {
-        int userID = Main.requestRegistrationToCentralServer(AN_ADDRESS);
+        Registrar registrar = new Registrar();
+        int userID = registrar.requestRegistrationToCentralServer(AN_ADDRESS);
         alarmSystem = new AlarmSystem(userID);
         keypad = new Keypad(alarmSystem);
         alarmSystem.setReady();
