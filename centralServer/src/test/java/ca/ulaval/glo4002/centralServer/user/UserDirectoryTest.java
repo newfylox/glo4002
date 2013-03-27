@@ -56,4 +56,11 @@ public class UserDirectoryTest {
         userDirectory.obtainUser(UNASSIGNED_ID);
     }
 
+    @Test
+    public void whenAlarmsFromUserAreAskedThenTheInformationAreRetrieveFromTheUser() {
+        userDirectory.addUser(user);
+        userDirectory.getAlarmsForUser(AN_ID);
+        verify(user).createLogForAllAlarms();
+    }
+
 }

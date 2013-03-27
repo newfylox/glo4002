@@ -43,4 +43,10 @@ public class UserDirectory {
         return lastIdGenerated;
     }
 
+    public String getAlarmsForUser(int userID) {
+        User user = obtainUser(userID);
+        String log = user.createLogForAllAlarms();
+        return log;
+    }
+
 }
