@@ -18,7 +18,7 @@ public class Alarm {
     }
 
     public String getInformationForLogPurpose() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formatedDate = dateFormat.format(date);
 
         String log = "Type=" + type.toString() + ", date=" + formatedDate + "\n";

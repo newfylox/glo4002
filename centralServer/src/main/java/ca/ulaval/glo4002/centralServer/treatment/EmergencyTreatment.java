@@ -23,7 +23,7 @@ public abstract class EmergencyTreatment {
         this.userDirectory = userDirectory;
     }
 
-    protected void addAlarmToUserLog(int userId, Type type) {
+    protected void addAlarmToUserList(int userId, Type type) {
         Date currentDate = new Date();
         Alarm alarm = new Alarm(type, currentDate);
         userDirectory.obtainUser(userId).addAlarm(alarm);

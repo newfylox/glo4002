@@ -24,7 +24,7 @@ public class PoliceTreatment extends EmergencyTreatment {
                                             + " was not found in the UsersDirectory.");
         }
 
-        addAlarmToUserLog(userId, ALARM_TYPE);
+        addAlarmToUserList(userId, ALARM_TYPE);
     }
 
     // for test purpose only

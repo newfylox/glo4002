@@ -18,7 +18,8 @@ public class EmergencyTreatmentTest {
 
     private static final String A_GOOD_URL_ID = "20";
 
-    private User mockedUser;
+    @Mock
+    private User user;
 
     @Mock
     private Communicator communicator;
@@ -32,17 +33,16 @@ public class EmergencyTreatmentTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         emergencyTreatment = createEmergencyTreatment();
-        mockedUser = mock(User.class);
     }
 
     @Test
-    public void toto() {
+    public void whenLogginAlarmThenAlarmIsAddedToTheRightUserList() {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
-        doReturn(mockedUser).when(userDirectory).obtainUser(aGoodID);
+        doReturn(user).when(userDirectory).obtainUser(aGoodID);
 
-        emergencyTreatment.addAlarmToUserLog(aGoodID, any(Type.class));
+        emergencyTreatment.addAlarmToUserList(aGoodID, any(Type.class));
 
-        verify(mockedUser).addAlarm(any(Alarm.class));
+        verify(user).addAlarm(any(Alarm.class));
     }
 
     private EmergencyTreatment createEmergencyTreatment() {
