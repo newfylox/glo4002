@@ -41,4 +41,5 @@ public class Communicator {
         String resourceURL = generateResourceURL(userID, targetResource);
         postRequestSender.sendRequest(resourceURL, messageToSend);
     }
+
 }

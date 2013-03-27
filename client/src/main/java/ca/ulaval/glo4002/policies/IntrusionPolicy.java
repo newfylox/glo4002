@@ -9,6 +9,7 @@ public class IntrusionPolicy extends Policy {
         super(alarmSystem);
         int userID = alarmSystem.getUserID();
         communicator = new Communicator(userID);
+        targetResource = Communicator.TargetResource.POLICE;
     }
 
 }
