@@ -10,14 +10,15 @@ import ca.ulaval.glo4002.centralServer.treatment.AlarmListTreatment;
 @Path("/alarm/")
 public class AlarmListResource {
 
-    private static final int HTTP_OK = 200;
+    private static final int RESPONSE_OK = 200;
 
     private AlarmListTreatment alarmListTreatment = new AlarmListTreatment();
 
     @POST
-    @Path("{userId}")
-    public Response askForAlarmFromUser(@PathParam("userId") String userIdPassedByGetRequest) {
-        String log = alarmListTreatment.retrieveLogFromUser(userIdPassedByGetRequest);
-        return Response.status(HTTP_OK).entity(log).build();
+    @Path("{userID}")
+    public Response askForAlarmFromUser(@PathParam("userID") String userIDPassedByGetRequest) {
+        String log = alarmListTreatment.retrieveLogFromUser(userIDPassedByGetRequest);
+        return Response.status(RESPONSE_OK).entity(log).build();
     }
+
 }

@@ -45,8 +45,8 @@ public class UserDirectoryTest {
 
     @Test
     public void canGenerateANewUniqueID() {
-        int firstID = userDirectory.generateNewId();
-        int secondID = userDirectory.generateNewId();
+        int firstID = userDirectory.generateNewID();
+        int secondID = userDirectory.generateNewID();
 
         assertThat(firstID, is(not(secondID)));
     }
@@ -54,13 +54,6 @@ public class UserDirectoryTest {
     @Test(expected = UserNotFoundException.class)
     public void tryingToObtainANotExistingUserThrowsAnException() throws UserNotFoundException {
         userDirectory.obtainUser(UNASSIGNED_ID);
-    }
-
-    @Test
-    public void whenAlarmsFromUserAreAskedThenTheInformationAreRetrieveFromTheUser() {
-        userDirectory.addUser(user);
-        userDirectory.getAlarmsForUser(AN_ID);
-        verify(user).createLogForAllAlarms();
     }
 
 }

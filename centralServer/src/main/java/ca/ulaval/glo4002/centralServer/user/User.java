@@ -22,9 +22,9 @@ public class User {
     }
 
     public String createLogForAllAlarms() {
-        String log = userID + "\nAdresse: " + userAddress + "\nListes des alarmes: \n";
+        String log = userID + "\nAddresse: " + userAddress + "\nAlarms' list: \n";
         if (alarms.isEmpty()) {
-            log += "There is no alarm for this user.";
+            log += "There is no alarms for this user.";
         } else {
             log += formatAlarms();
         }

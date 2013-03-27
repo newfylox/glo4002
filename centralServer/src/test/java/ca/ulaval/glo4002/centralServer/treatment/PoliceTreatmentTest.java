@@ -37,7 +37,7 @@ public class PoliceTreatmentTest {
     }
 
     @Test
-    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicatorSendsSomething() throws UserNotFoundException {
+    public void whenProcessingTheRequestWithAGoodUserIDThenCommunicatorSendsSomething() throws UserNotFoundException {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
         doReturn(true).when(userDirectory).userExists(aGoodID);
         doReturn(user).when(userDirectory).obtainUser(aGoodID);
@@ -48,7 +48,7 @@ public class PoliceTreatmentTest {
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void whenProcessingTheRequestWithAWrongUserIdThenANotFoundUserExceptionIsThrown() throws UserNotFoundException {
+    public void whenProcessingTheRequestWithAWrongUserIDThenANotFoundUserExceptionIsThrown() throws UserNotFoundException {
         int aWrongID = Integer.parseInt(A_WRONG_URL_ID);
         doReturn(false).when(userDirectory).userExists(aWrongID);
 

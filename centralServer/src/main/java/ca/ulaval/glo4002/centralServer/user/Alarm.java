@@ -5,15 +5,15 @@ import java.util.Date;
 
 public class Alarm {
 
-    public enum Type {
+    public enum AlarmType {
         FIRE, INTRUSION
     };
 
-    private Type type;
+    private AlarmType alarmType;
     private Date date;
 
-    public Alarm(Type type, Date date) {
-        this.type = type;
+    public Alarm(AlarmType type, Date date) {
+        this.alarmType = type;
         this.date = date;
     }
 
@@ -21,7 +21,7 @@ public class Alarm {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formatedDate = dateFormat.format(date);
 
-        String log = "Type=" + type.toString() + ", date=" + formatedDate + "\n";
+        String log = "Type=" + alarmType.toString() + ", date=" + formatedDate + "\n";
 
         return log;
     }

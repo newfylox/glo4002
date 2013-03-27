@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.centralServer.communication.Communicator;
 import ca.ulaval.glo4002.centralServer.user.Alarm;
-import ca.ulaval.glo4002.centralServer.user.Alarm.Type;
+import ca.ulaval.glo4002.centralServer.user.Alarm.AlarmType;
 import ca.ulaval.glo4002.centralServer.user.User;
 import ca.ulaval.glo4002.centralServer.user.UserDirectory;
 
@@ -36,11 +36,11 @@ public class EmergencyTreatmentTest {
     }
 
     @Test
-    public void whenLogginAlarmThenAlarmIsAddedToTheRightUserList() {
+    public void whenLoggingAlarmThenAlarmIsAddedToTheRightUserList() {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
         doReturn(user).when(userDirectory).obtainUser(aGoodID);
 
-        emergencyTreatment.addAlarmToUserList(aGoodID, any(Type.class));
+        emergencyTreatment.addAlarmToUserList(aGoodID, any(AlarmType.class));
 
         verify(user).addAlarm(any(Alarm.class));
     }

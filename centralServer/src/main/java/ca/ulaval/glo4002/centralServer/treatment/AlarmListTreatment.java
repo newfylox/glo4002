@@ -8,16 +8,17 @@ public class AlarmListTreatment {
 
     protected UserDirectory userDirectory = UserDirectoryLocator.getInstance().getUserDirectory();
 
-    public String retrieveLogFromUser(String userIdPassedByGetRequest) {
-        int userId = Integer.parseInt(userIdPassedByGetRequest);
+    public String retrieveLogFromUser(String userIDPassedByGetRequest) {
+        int userID = Integer.parseInt(userIDPassedByGetRequest);
         String log;
-        if (userDirectory.userExists(userId)) {
-            log = userDirectory.getAlarmsForUser(userId);
+        if (userDirectory.userExists(userID)) {
+            log = userDirectory.obtainUser(userID).createLogForAllAlarms();
         } else {
-            throw new UserNotFoundException("The ID " + userIdPassedByGetRequest
+            throw new UserNotFoundException("The ID " + userIDPassedByGetRequest
                                             + " was not found in the UsersDirectory.");
         }
 
         return log;
     }
+
 }

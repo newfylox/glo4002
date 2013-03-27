@@ -38,15 +38,9 @@ public class UserDirectory {
         return userToBeFound;
     }
 
-    public int generateNewId() {
+    public int generateNewID() {
         lastIdGenerated++;
         return lastIdGenerated;
-    }
-
-    public String getAlarmsForUser(int userID) {
-        User user = obtainUser(userID);
-        String log = user.createLogForAllAlarms();
-        return log;
     }
 
 }
