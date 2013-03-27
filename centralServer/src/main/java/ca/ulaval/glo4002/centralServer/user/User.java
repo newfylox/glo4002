@@ -6,7 +6,7 @@ public class User {
 
     private int userID;
     private String userAddress;
-    private ArrayList<Alarm> alarms;
+    private ArrayList<Alarm> alarms = new ArrayList<Alarm>();
 
     public User(int userID, String address) {
         this.userID = userID;

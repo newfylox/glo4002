@@ -20,6 +20,9 @@ public class PoliceTreatmentTest {
     private static final String A_WRONG_URL_ID = "13";
 
     @Mock
+    private User user;
+
+    @Mock
     private Communicator communicator;
 
     @Mock
@@ -37,6 +40,7 @@ public class PoliceTreatmentTest {
     public void whenProcessingTheRequestWithAGoodUserIdThenCommunicatorSendsSomething() throws UserNotFoundException {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
         doReturn(true).when(userDirectory).userExists(aGoodID);
+        doReturn(user).when(userDirectory).obtainUser(aGoodID);
 
         policeTreatment.processRequest(A_GOOD_URL_ID);
 
