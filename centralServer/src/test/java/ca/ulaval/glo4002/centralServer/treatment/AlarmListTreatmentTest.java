@@ -32,7 +32,7 @@ public class AlarmListTreatmentTest {
     }
 
     @Test
-    public void whenProcessingTheRequestWithAGoodUserIDThen() throws UserNotFoundException {
+    public void whenProcessingTheRequestWithAGoodUserIDThenTheLogFromTheUserIsRetrieved() throws UserNotFoundException {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
         doReturn(true).when(userDirectory).userExists(aGoodID);
         doReturn(user).when(userDirectory).obtainUser(aGoodID);
