@@ -49,8 +49,7 @@ public class Communicator {
 
     private void sendRegisterRequestToCentralServer(HashMap<String, String> attributes) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
-        String resourceURL = REGISTER_URL;
-        String response = postRequestSender.sendRequest(resourceURL, messageToSend);
+        String response = postRequestSender.sendRequest(REGISTER_URL, messageToSend);
         userID = Integer.parseInt(response);
     }
 
