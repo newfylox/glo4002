@@ -13,7 +13,7 @@ public class Communicator {
     private static final String REGISTER_URL = "register/";
 
     public static enum TargetResource {
-        FIRE, POLICE
+        FIRE, POLICE, REGISTRATION
     };
 
     private int userID;
@@ -32,8 +32,13 @@ public class Communicator {
         sendRegisterRequestToCentralServer(attributes);
     }
 
+    // This method is protected because it is used in the tests
     protected String generateResourceURL(TargetResource targetResource) {
-        return String.format("client/%d/%s", userID, targetResource.toString().toLowerCase());
+        if (targetResource.equals(TargetResource.REGISTRATION)) {
+            return REGISTER_URL;
+        } else {
+            return String.format("client/%d/%s", userID, targetResource.toString().toLowerCase());
+        }
     }
 
     public void sendMessageToCentralServer(TargetResource targetResource) {
@@ -41,15 +46,15 @@ public class Communicator {
         getRequestSender.sendRequest(resourceURL);
     }
 
-    public void sendMessageToCentralServer(HashMap<String, String> attributes, TargetResource targetResource) {
+    public String sendMessageToCentralServer(HashMap<String, String> attributes, TargetResource targetResource) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
         String resourceURL = generateResourceURL(targetResource);
-        postRequestSender.sendRequest(resourceURL, messageToSend);
+        String response = postRequestSender.sendRequest(resourceURL, messageToSend);
+        return response;
     }
 
     private void sendRegisterRequestToCentralServer(HashMap<String, String> attributes) {
-        String messageToSend = messageEncoder.generateEncodedMessage(attributes);
-        String response = postRequestSender.sendRequest(REGISTER_URL, messageToSend);
+        String response = sendMessageToCentralServer(attributes, TargetResource.REGISTRATION);
         userID = Integer.parseInt(response);
     }
 
