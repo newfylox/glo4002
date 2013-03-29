@@ -16,10 +16,10 @@ public class Communicator {
         FIRE, POLICE
     };
 
-    protected int userID;
-    protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
-    protected POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
-    protected GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);
+    private int userID;
+    private JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
+    private POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
+    private GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);
 
     public Communicator(String houseAddress) {
         requestUserIDFromCentralServer(houseAddress);
