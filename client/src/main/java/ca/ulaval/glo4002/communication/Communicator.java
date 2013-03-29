@@ -9,22 +9,27 @@ import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 public class Communicator {
 
     private static final int CENTRAL_SERVER_PORT = 9001;
+    private static final String ADDRESS_KEY = "address";
+    private static final String REGISTER_URL = "register/";
 
     public static enum TargetResource {
-        FIRE, POLICE, REGISTRATION
+        FIRE, POLICE
     };
 
     protected int userID;
     protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
     protected POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
-    protected GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);;
+    protected GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);
 
-    public Communicator(int userID) {
-        this.userID = userID;
+    public Communicator(String houseAddress) {
+        requestUserIDFromCentralServer(houseAddress);
     }
 
-    protected Communicator() {
+    public void requestUserIDFromCentralServer(String houseAddress) {
+        HashMap<String, String> attributes = new HashMap<String, String>();
 
+        attributes.put(ADDRESS_KEY, houseAddress);
+        sendRegisterRequestToCentralServer(attributes);
     }
 
     private String generateResourceURL(int userID, TargetResource targetResource) {
@@ -40,6 +45,22 @@ public class Communicator {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
         String resourceURL = generateResourceURL(userID, targetResource);
         postRequestSender.sendRequest(resourceURL, messageToSend);
+    }
+
+    private void sendRegisterRequestToCentralServer(HashMap<String, String> attributes) {
+        String messageToSend = messageEncoder.generateEncodedMessage(attributes);
+        String resourceURL = REGISTER_URL;
+        String response = postRequestSender.sendRequest(resourceURL, messageToSend);
+        userID = Integer.parseInt(response);
+    }
+
+    // For test purposes only
+    protected Communicator(String houseAddress, POSTRequestSender postRequestSender, GETRequestSender getRequestSender,
+                           JSONMessageEncoder messageEncoder) {
+        this.postRequestSender = postRequestSender;
+        this.getRequestSender = getRequestSender;
+        this.messageEncoder = messageEncoder;
+        requestUserIDFromCentralServer(houseAddress);
     }
 
 }
