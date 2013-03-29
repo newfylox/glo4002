@@ -42,7 +42,8 @@ public class CommunicatorTest {
     @SuppressWarnings("unchecked")
     public void callsSendPostRequestWhenSendingWithAttributes() {
         communicator.sendMessageToCentralServer(any(HashMap.class), A_VALID_TARGET_RESOURCE);
-        verify(postRequestSender, times(2)).sendRequest(anyString(), anyString());
+        verify(postRequestSender).sendRequest(eq(communicator.generateResourceURL(A_VALID_TARGET_RESOURCE)),
+                                              anyString());
     }
 
     @Test

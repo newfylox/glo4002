@@ -25,25 +25,25 @@ public class Communicator {
         requestUserIDFromCentralServer(houseAddress);
     }
 
-    public void requestUserIDFromCentralServer(String houseAddress) {
+    private void requestUserIDFromCentralServer(String houseAddress) {
         HashMap<String, String> attributes = new HashMap<String, String>();
 
         attributes.put(ADDRESS_KEY, houseAddress);
         sendRegisterRequestToCentralServer(attributes);
     }
 
-    private String generateResourceURL(int userID, TargetResource targetResource) {
+    protected String generateResourceURL(TargetResource targetResource) {
         return String.format("client/%d/%s", userID, targetResource.toString().toLowerCase());
     }
 
     public void sendMessageToCentralServer(TargetResource targetResource) {
-        String resourceURL = generateResourceURL(userID, targetResource);
+        String resourceURL = generateResourceURL(targetResource);
         getRequestSender.sendRequest(resourceURL);
     }
 
     public void sendMessageToCentralServer(HashMap<String, String> attributes, TargetResource targetResource) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
-        String resourceURL = generateResourceURL(userID, targetResource);
+        String resourceURL = generateResourceURL(targetResource);
         postRequestSender.sendRequest(resourceURL, messageToSend);
     }
 
