@@ -45,12 +45,12 @@ public class KeypadTest {
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenArmSystemIfPINIsInvalidThrowAnException() {
+    public void whenArmSystemIfPINIsInvalidThenAnInvalidPINExceptionIsThrown() {
         keypad.armSystem(INVALID_PIN);
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenDisarmSystemIfPINIsInvalidThrowAnException() {
+    public void whenDisarmSystemIfPINIsInvalidThenAnInvalidPINExceptionIsThrown() {
         keypad.disarmSystem(INVALID_PIN);
     }
 
