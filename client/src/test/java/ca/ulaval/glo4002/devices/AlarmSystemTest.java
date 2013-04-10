@@ -37,7 +37,8 @@ public class AlarmSystemTest {
         doAnswer(new Answer<Object>() {
 
             @Override
-            public Object answer(final InvocationOnMock invocation) throws Throwable {
+            public Object answer(final InvocationOnMock invocation)
+                    throws Throwable {
                 alarmSystem.delayExpired();
                 return null;
             }
@@ -53,6 +54,11 @@ public class AlarmSystemTest {
     @Test
     public void systemValidatesRapidPIN() {
         assertTrue(alarmSystem.validatePIN(RAPID_PIN));
+    }
+
+    @Test
+    public void systemDoesntValidatePINWithInvalidPin() {
+        assertFalse(alarmSystem.validatePIN(INVALID_PIN));
     }
 
     @Test(expected = InvalidPINException.class)

@@ -13,6 +13,7 @@ import ca.ulaval.glo4002.policies.PolicyFactory.PolicyType;
 
 public class PolicyFactoryTest {
 
+    private PolicyType INVALID_POLICY;
     private PolicyFactory policyFactory;
 
     @Mock
@@ -20,6 +21,9 @@ public class PolicyFactoryTest {
 
     @Mock
     private Communicator communicator;
+
+    @Mock
+    private Policy invalidPolicy;
 
     @Before
     public void setUp() {
@@ -35,14 +39,21 @@ public class PolicyFactoryTest {
 
     @Test
     public void whenCreatingIntrusionPolicyAIntrusionPolicyIsReturned() {
-        Policy intrusionPolicy = policyFactory.createPolicy(PolicyType.INTRUSION_POLICY);
+        Policy intrusionPolicy = policyFactory
+                .createPolicy(PolicyType.INTRUSION_POLICY);
         assertTrue(intrusionPolicy instanceof IntrusionPolicy);
     }
 
     @Test
     public void whenCreatingMainDoorPolicyAMainDoorPolicyIsReturned() {
-        Policy mainDoorPolicy = policyFactory.createPolicy(PolicyType.MAIN_DOOR_INTRUSION_POLICY);
+        Policy mainDoorPolicy = policyFactory
+                .createPolicy(PolicyType.MAIN_DOOR_INTRUSION_POLICY);
         assertTrue(mainDoorPolicy instanceof MainDoorIntrusionPolicy);
+    }
+
+    @Test(expected = InvalidPolicyException.class)
+    public void whenCreatingInvalidPolicyThenThrowAnException() {
+        invalidPolicy = policyFactory.createPolicy(INVALID_POLICY);
     }
 
 }
